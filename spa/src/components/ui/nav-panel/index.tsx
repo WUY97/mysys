@@ -7,7 +7,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuthState, useAuthDispatch } from '@context'
 
 import Link from 'next/link';
-import ActiveLink from '../link';
 
 const navigation = [
     { name: 'Home', href: '/', current: true },

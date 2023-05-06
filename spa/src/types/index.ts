@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { NextRouter } from 'next/router';
 
 export interface AuthState {
@@ -8,9 +7,16 @@ export interface AuthState {
     accessToken: string | null;
 }
 
-export interface AuthAction {
-    type: string;
-    payload: any;
+export type AuthContextValue = {
+    authState: AuthState;
+    updateAuthState: (authState: AuthState) => void;
+    loginSuccess: (authState: AuthState) => void;
+    loginFailure: () => void;
+};
+
+export interface LoginFormState {
+    name: string;
+    password: string;
 }
 
 export interface HomeProps {

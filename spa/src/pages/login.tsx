@@ -1,122 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import type { NextPage } from 'next';
 import { BaseLayout } from "@ui"
 import axios from 'axios';
-import { AuthState, LoginProps } from '@types';
+import { LoginProps, LoginFormState } from '@types';
 import { useAuthState, useAuthDispatch } from '@context'
 import * as Constants from '@utils/Constants';
-
-interface LoginFormProps {
-    loginHandler: (name: string, password: string) => void;
-}
-
-interface LoginFormState {
-    name: string;
-    password: string;
-}
-
-const LoginForm = (props: LoginFormProps) => {
-    const [userInfo, setUserInfo] = useState<LoginFormState>({name: '', password: ''})
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target;
-        setUserInfo({ [name]: value } as Pick<
-            LoginFormState,
-            keyof LoginFormState
-        >);
-        event.preventDefault();
-    }
-
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        props.loginHandler(userInfo.name, userInfo.password);
-    }
-
-    return (
-        <>
-            <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-                <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <img
-                        className='mx-auto h-10 w-auto'
-                        src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-                        alt='Your Company'
-                    />
-                    <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-                        Sign in to your account
-                    </h2>
-                </div>
-
-                <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <form
-                        className='space-y-6'
-                        action='#'
-                        method='POST'
-                        onSubmit={handleSubmit}
-                    >
-                        <div>
-                            <label
-                                htmlFor='name'
-                                className='block text-sm font-medium leading-6 text-gray-900'
-                            >
-                                Username
-                            </label>
-                            <div className='mt-2'>
-                                <input
-                                    id='name'
-                                    name='name'
-                                    type='name'
-                                    required
-                                    value={userInfo.name}
-                                    onChange={handleChange}
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='flex items-center justify-between'>
-                                <label
-                                    htmlFor='password'
-                                    className='block text-sm font-medium leading-6 text-gray-900'
-                                >
-                                    Password
-                                </label>
-                            </div>
-                            <div className='mt-2'>
-                                <input
-                                    id='password'
-                                    name='password'
-                                    type='password'
-                                    autoComplete='current-password'
-                                    required
-                                    value={userInfo.password}
-                                    onChange={handleChange}
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <button
-                                type='submit'
-                                className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                            >
-                                Sign in
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </>
-    );
-}
 
 const Login: NextPage = (props: LoginProps) => {
     const { isLoggedIn } = useAuthState();
     const authState = useAuthState();
-    const [result, setResult] = useState<string>('');
 
+    const dispatch = useAuthDispatch();
+
+    const [result, setResult] = useState<string>('');    
     const [userInfo, setUserInfo] = useState<LoginFormState>({ name: '', password: '' })
+
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
         setUserInfo({ [name]: value } as Pick<
@@ -131,7 +30,6 @@ const Login: NextPage = (props: LoginProps) => {
         login(userInfo.name, userInfo.password);
     }
 
-
     function postLogin(result: boolean) {
         if (result) {
             if (props.appAuthStateHandler) {
@@ -145,8 +43,6 @@ const Login: NextPage = (props: LoginProps) => {
     }
 
     function login(name: string, password: string) {
-        const dispatch = useAuthDispatch();
-
         const body = {
             id: name,
             password: password,
@@ -178,14 +74,11 @@ const Login: NextPage = (props: LoginProps) => {
                     response.data.name +
                     ' with roles: ' +
                     JSON.stringify(response.data.roles));
-                dispatch({
-                    type: 'LOGIN_SUCCESS',
-                    payload: {
-                        userId: parseInt(body.id),
-                        userName: response.data.name,
-                        accessToken: response.data.access_token,
-                    }
-
+                dispatch.loginSuccess({
+                    isLoggedIn: true,
+                    userId: parseInt(body.id),
+                    userName: response.data.name,
+                    accessToken: response.data.access_token,
                 });
                 postLogin(true);
             })
@@ -199,10 +92,7 @@ const Login: NextPage = (props: LoginProps) => {
                 } else {
                     setResult('Login failure');
                 }
-                dispatch({
-                    type: 'LOGIN_FAILED',
-                    payload: ''
-                });
+                dispatch.loginFailure();
                 postLogin(false);
             });
     }
@@ -210,7 +100,79 @@ const Login: NextPage = (props: LoginProps) => {
     const page = isLoggedIn ? (
         <h1>You have logged in as</h1>
     ) : (
-        <LoginForm loginHandler={login} />
+        <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+            <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+                <img
+                    className='mx-auto h-10 w-auto'
+                    src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
+                    alt='Your Company'
+                />
+                <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+                    Sign in to your account
+                </h2>
+            </div>
+
+            <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+                <form
+                    className='space-y-6'
+                    action='#'
+                    method='POST'
+                    onSubmit={handleSubmit}
+                >
+                    <div>
+                        <label
+                            htmlFor='name'
+                            className='block text-sm font-medium leading-6 text-gray-900'
+                        >
+                            Username
+                        </label>
+                        <div className='mt-2'>
+                            <input
+                                id='name'
+                                name='name'
+                                type='name'
+                                required
+                                value={userInfo.name}
+                                onChange={handleChange}
+                                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className='flex items-center justify-between'>
+                            <label
+                                htmlFor='password'
+                                className='block text-sm font-medium leading-6 text-gray-900'
+                            >
+                                Password
+                            </label>
+                        </div>
+                        <div className='mt-2'>
+                            <input
+                                id='password'
+                                name='password'
+                                type='password'
+                                autoComplete='current-password'
+                                required
+                                value={userInfo.password}
+                                onChange={handleChange}
+                                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <button
+                            type='submit'
+                            className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                        >
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     );
     return (
         <BaseLayout>

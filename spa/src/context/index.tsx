@@ -1,72 +1,60 @@
-import { AuthState } from '@types'
-import { Provider, useSelector, useDispatch } from 'react-redux'
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createContext, useContext, useState } from "react";
+import { AuthState, AuthContextValue } from "@types";
 
-const AUTH_STATE_KEY = 'auth_state';
+const AUTH_STATE_KEY = "auth_state";
 
 const AUTH_INIT_STATE: AuthState = {
     isLoggedIn: false,
     userId: null,
     userName: null,
     accessToken: null,
-}
+};
 
-const authSlice = createSlice({
-    name: 'auth',
-    initialState: AUTH_INIT_STATE,
-    reducers: {
-        updateAuthState(state, action: PayloadAction<AuthState>) {
-            const authState = action.payload || AUTH_INIT_STATE;
-            sessionStorage.setItem(AUTH_STATE_KEY, JSON.stringify(authState));
-            state.isLoggedIn = authState.isLoggedIn;
-            state.userId = authState.userId;
-            state.userName = authState.userName;
-            state.accessToken = authState.accessToken;
-        },
-        loginSuccess(state, action: PayloadAction<AuthState>) {
-            const authState = action.payload || AUTH_INIT_STATE;
-            sessionStorage.setItem(AUTH_STATE_KEY, JSON.stringify(authState));
-            state.isLoggedIn = true;
-            state.userId = authState.userId;
-            state.userName = authState.userName;
-            state.accessToken = authState.accessToken;
-        },
-        loginFailure(state) {
-            state.isLoggedIn = false;
-            state.userId = null;
-            state.userName = null;
-            state.accessToken = null;
-        }
-    }
-})
-
-const store = configureStore({
-    reducer: authSlice.reducer,
+const AuthContext = createContext<AuthContextValue>({
+    authState: AUTH_INIT_STATE,
+    updateAuthState: () => { },
+    loginSuccess: () => { },
+    loginFailure: () => { },
 });
 
-const { actions } = authSlice;
-
 function AuthProvider({ children }: { children: React.ReactNode }) {
-    return <Provider store={store}>{children}</Provider>;
+    const [authState, setAuthState] = useState<AuthState>(AUTH_INIT_STATE);
+
+    const updateAuthState = (newAuthState: AuthState) => {
+        sessionStorage.setItem(AUTH_STATE_KEY, JSON.stringify(newAuthState));
+        setAuthState(newAuthState);
+    };
+
+    const loginSuccess = (newAuthState: AuthState) => {
+        sessionStorage.setItem(AUTH_STATE_KEY, JSON.stringify(newAuthState));
+        setAuthState({ ...newAuthState, isLoggedIn: true });
+    };
+
+    const loginFailure = () => {
+        sessionStorage.removeItem(AUTH_STATE_KEY);
+        setAuthState(AUTH_INIT_STATE);
+    };
+
+    const value = {
+        authState,
+        updateAuthState,
+        loginSuccess,
+        loginFailure,
+    };
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 function useAuthState() {
-    return useSelector((state: any) => state);
+    const { authState } = useContext(AuthContext);
+    return authState;
 }
 
 function useAuthDispatch() {
-    const dispatch = useDispatch();
-    return {
-        updateAuthState: (authState: AuthState) => {
-            dispatch(actions.updateAuthState(authState));
-        },
-        loginSuccess: (authState: AuthState) => {
-            dispatch(actions.loginSuccess(authState));
-        },
-        loginFailure: () => {
-            dispatch(actions.loginFailure());
-        },
-    };
+    const { updateAuthState, loginSuccess, loginFailure } = useContext(
+        AuthContext
+    );
+    return { updateAuthState, loginSuccess, loginFailure };
 }
 
 export { AuthProvider, useAuthState, useAuthDispatch };
