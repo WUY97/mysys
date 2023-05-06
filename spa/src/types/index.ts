@@ -8,7 +8,13 @@ export interface AuthState {
     accessToken: string | null;
 }
 
+export interface AuthAction {
+    type: string;
+    payload: any;
+}
+
 export interface HomeProps {
+    router: NextRouter,
     appAuthStateHandler?: (authState: AuthState | null) => void;
 }
 
@@ -20,3 +26,5 @@ export interface AppProps {
 export interface LoginProps {
     appAuthStateHandler?: (authState: AuthState | null) => void;
 }
+
+export const AUTH_STATE_KEY = 'auth_state';

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, PropsWithChildren } from 'react';
 import NavPanel from '../nav-panel';
 import { ErrorBoundary } from '@utils';
 
@@ -30,7 +30,7 @@ const renderLoader = () => (
     </div>
 );
 
-const BaseLayout: React.FC<Props> = ({ children }) => {
+const BaseLayout = ({ children }: PropsWithChildren<Props>) => {
     return (
         <>
             <NavPanel />

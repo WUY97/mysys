@@ -1,9 +1,9 @@
 import { BaseLayout } from "@ui"
 
-export default function Cart() {
+export default function Products() {
     return (
         <BaseLayout>
-            <div>Cart</div>
+            <div>Products</div>
         </BaseLayout>
     )
 }

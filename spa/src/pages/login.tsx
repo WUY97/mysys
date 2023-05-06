@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { Component } from 'react';
-import Image from 'next/image';
+import { Component, useState } from 'react';
+import type { NextPage } from 'next';
+import { BaseLayout } from "@ui"
 import axios from 'axios';
 import { AuthState, LoginProps } from '@types';
-
+import { useAuthState, useAuthDispatch } from '@context'
 import * as Constants from '@utils/Constants';
 
 interface LoginFormProps {
@@ -15,136 +16,137 @@ interface LoginFormState {
     password: string;
 }
 
-class LoginForm extends Component<LoginFormProps, LoginFormState> {
-    constructor(props: LoginFormProps) {
-        super(props);
-        this.state = { name: '', password: 'password' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+const LoginForm = (props: LoginFormProps) => {
+    const [userInfo, setUserInfo] = useState<LoginFormState>({name: '', password: ''})
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
-        this.setState({ [name]: value } as Pick<
+        setUserInfo({ [name]: value } as Pick<
             LoginFormState,
             keyof LoginFormState
         >);
         event.preventDefault();
     }
 
-    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        this.props.loginHandler(this.state.name, this.state.password);
+        props.loginHandler(userInfo.name, userInfo.password);
     }
 
-    render() {
-        return (
-            <>
-                <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-                    <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-                        <img
-                            className='mx-auto h-10 w-auto'
-                            src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-                            alt='Your Company'
-                        />
-                        <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-                            Sign in to your account
-                        </h2>
-                    </div>
+    return (
+        <>
+            <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+                <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+                    <img
+                        className='mx-auto h-10 w-auto'
+                        src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
+                        alt='Your Company'
+                    />
+                    <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+                        Sign in to your account
+                    </h2>
+                </div>
 
-                    <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                        <form
-                            className='space-y-6'
-                            action='#'
-                            method='POST'
-                            onSubmit={this.handleSubmit}
-                        >
-                            <div>
+                <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+                    <form
+                        className='space-y-6'
+                        action='#'
+                        method='POST'
+                        onSubmit={handleSubmit}
+                    >
+                        <div>
+                            <label
+                                htmlFor='name'
+                                className='block text-sm font-medium leading-6 text-gray-900'
+                            >
+                                Username
+                            </label>
+                            <div className='mt-2'>
+                                <input
+                                    id='name'
+                                    name='name'
+                                    type='name'
+                                    required
+                                    value={userInfo.name}
+                                    onChange={handleChange}
+                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className='flex items-center justify-between'>
                                 <label
-                                    htmlFor='name'
+                                    htmlFor='password'
                                     className='block text-sm font-medium leading-6 text-gray-900'
                                 >
-                                    Username
+                                    Password
                                 </label>
-                                <div className='mt-2'>
-                                    <input
-                                        id='name'
-                                        name='name'
-                                        type='name'
-                                        required
-                                        value={this.state.name}
-                                        onChange={this.handleChange}
-                                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                    />
-                                </div>
                             </div>
+                            <div className='mt-2'>
+                                <input
+                                    id='password'
+                                    name='password'
+                                    type='password'
+                                    autoComplete='current-password'
+                                    required
+                                    value={userInfo.password}
+                                    onChange={handleChange}
+                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                />
+                            </div>
+                        </div>
 
-                            <div>
-                                <div className='flex items-center justify-between'>
-                                    <label
-                                        htmlFor='password'
-                                        className='block text-sm font-medium leading-6 text-gray-900'
-                                    >
-                                        Password
-                                    </label>
-                                </div>
-                                <div className='mt-2'>
-                                    <input
-                                        id='password'
-                                        name='password'
-                                        type='password'
-                                        autoComplete='current-password'
-                                        required
-                                        value={this.state.password}
-                                        onChange={this.handleChange}
-                                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <button
-                                    type='submit'
-                                    className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                                >
-                                    Sign in
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div>
+                            <button
+                                type='submit'
+                                className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                            >
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }
 
-class Login extends Component<LoginProps> {
-    private authState: AuthState = {
-        isLoggedIn: false,
-        userId: null,
-        userName: null,
-        accessToken: null,
-    };
-    private result: string = '';
+const Login: NextPage = (props: LoginProps) => {
+    const { isLoggedIn } = useAuthState();
+    const authState = useAuthState();
+    const [result, setResult] = useState<string>('');
 
-    constructor(props: LoginProps) {
-        super(props);
-        this.login = this.login.bind(this);
+    const [userInfo, setUserInfo] = useState<LoginFormState>({ name: '', password: '' })
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = event.target;
+        setUserInfo({ [name]: value } as Pick<
+            LoginFormState,
+            keyof LoginFormState
+        >);
+        event.preventDefault();
     }
 
-    postLogin(result: boolean) {
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        login(userInfo.name, userInfo.password);
+    }
+
+
+    function postLogin(result: boolean) {
         if (result) {
-            if (this.props.appAuthStateHandler) {
-                this.props.appAuthStateHandler(this.authState);
+            if (props.appAuthStateHandler) {
+                props.appAuthStateHandler(authState);
             }
         } else {
-            if (this.props.appAuthStateHandler) {
-                this.props.appAuthStateHandler(null);
+            if (props.appAuthStateHandler) {
+                props.appAuthStateHandler(null);
             }
         }
     }
 
-    login(name: string, password: string) {
+    function login(name: string, password: string) {
+        const dispatch = useAuthDispatch();
+
         const body = {
             id: name,
             password: password,
@@ -164,54 +166,60 @@ class Login extends Component<LoginProps> {
             })
             .then((accessToken) => {
                 console.log('Access token is ' + accessToken);
-                this.authState['accessToken'] = accessToken;
                 return axios.get(
                     Constants.AUTH_SVC_URL +
-                        'token/user?access_token=' +
-                        accessToken
+                    'token/user?access_token=' +
+                    accessToken
                 );
             })
             .then((response) => {
                 console.log('User request STATUS = ' + response.status);
-                this.result =
-                    'User ' +
+                setResult('User ' +
                     response.data.name +
                     ' with roles: ' +
-                    JSON.stringify(response.data.roles);
-                this.authState.isLoggedIn = true;
-                this.authState.userId = parseInt(body.id);
+                    JSON.stringify(response.data.roles));
+                dispatch({
+                    type: 'LOGIN_SUCCESS',
+                    payload: {
+                        userId: parseInt(body.id),
+                        userName: response.data.name,
+                        accessToken: response.data.access_token,
+                    }
 
-                this.authState.userName = response.data.name;
-                this.postLogin(true);
+                });
+                postLogin(true);
             })
             .catch((error) => {
                 console.log('Error description: ' + error);
                 if (error.response && error.response.status) {
                     console.log('Error Status = ' + error.response.status);
                     if (error.response.status === 403) {
-                        this.result = 'Incorrect credentials';
+                        setResult('Incorrect credentials');
                     }
                 } else {
-                    this.result = 'Login failure';
+                    setResult('Login failure');
                 }
-                this.authState['accessToken'] = null;
-                this.postLogin(false);
+                dispatch({
+                    type: 'LOGIN_FAILED',
+                    payload: ''
+                });
+                postLogin(false);
             });
     }
 
-    render() {
-        const page = this.authState.isLoggedIn ? (
-            <h1>You have logged in as</h1>
-        ) : (
-            <LoginForm loginHandler={this.login} />
-        );
-        return (
+    const page = isLoggedIn ? (
+        <h1>You have logged in as</h1>
+    ) : (
+        <LoginForm loginHandler={login} />
+    );
+    return (
+        <BaseLayout>
             <div className='mt-20'>
                 {page}
-                <h4>{this.result}</h4>
+                <h4>{result}</h4>
             </div>
-        );
-    }
+        </BaseLayout>
+    );
 }
 
 export default Login;
