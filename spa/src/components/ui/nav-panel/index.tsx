@@ -1,15 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Component, ContextType, Fragment, useContext } from 'react';
-
+import React, { Fragment } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-import { useAuthState, useAuthDispatch } from '@context'
+import { useAuthState } from '@context'
 
-import Link from 'next/link';
+
 
 const navigation = [
-    { name: 'Home', href: '/', current: true },
+    { name: 'Home', href: '/', current: false },
     { name: 'Products', href: '/products', current: false },
     { name: 'Cart', href: '/cart', current: false },
 ];
@@ -20,6 +21,13 @@ function classNames(...classes: string[]) {
 
 const NavUser: React.FC = () => {
     const { isLoggedIn } = useAuthState();
+    const router = useRouter();
+    
+    for (let nav of navigation) {
+        if (nav.href === router.pathname) {
+            nav.current = true;
+        }
+    }
 
     return (<>{
         isLoggedIn ? (<Menu as='div' className='relative ml-3'>

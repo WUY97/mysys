@@ -34,3 +34,22 @@ export interface LoginProps {
 }
 
 export const AUTH_STATE_KEY = 'auth_state';
+
+export type ProductProp = {
+    id: number,
+    imageUrl?: string,
+    name: string,
+    price: number,
+}
+
+export type CartLine = {
+    id: number;
+    productId: string;
+    quantity: number;
+    product: ProductProp;
+};
+
+export type CartData = {
+    id: number;
+    cartLines: CartLine[];
+};

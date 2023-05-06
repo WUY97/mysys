@@ -1,5 +1,4 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import {ErrorProps} from '@types';
 
 export interface Props {
     children: ReactNode;

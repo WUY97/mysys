@@ -23,7 +23,6 @@
             "@utils/*": ["utils/*"],
             "@types": ["types"],
             "@types/*": ["types/*"],
-            "@constants": ["constants"],
             "@context": ["context"],
             "@context/*": ["context/*"],
         }
