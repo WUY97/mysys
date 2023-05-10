@@ -54,7 +54,7 @@ const NavUser: React.FC = () => {
                     { }
                     <Menu.Item>
                         {({ active }) => (
-                            <a
+                            <Link
                                 href='/logout'
                                 className={classNames(
                                     active ? 'bg-gray-100' : '',
@@ -62,7 +62,7 @@ const NavUser: React.FC = () => {
                                 )}
                             >
                                 Sign out
-                            </a>
+                            </Link>
                         )}
                     </Menu.Item>
                 </Menu.Items>
@@ -150,7 +150,7 @@ const NavPanel: React.FC = () => {
                                 <div className='hidden sm:ml-6 sm:block'>
                                     <div className='flex space-x-4'>
                                         {navigation.map((item) => (
-                                            <a
+                                            <Link
                                                 key={item.name}
                                                 href={item.href}
                                                 className={classNames(
@@ -166,7 +166,7 @@ const NavPanel: React.FC = () => {
                                                 }
                                             >
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
 import axios from 'axios';
