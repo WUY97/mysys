@@ -29,7 +29,7 @@ rm -f ./reactapp.tar.gz ./build/reactapp.tar.gz && \
 # verify_success $? "gzip reactapp"
 verify_success $? "tar reactapp"
 
-mv reactapp.tar.gz ..
+# mv reactapp.tar.gz ..
 
 popd
 
