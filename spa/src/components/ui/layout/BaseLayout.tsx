@@ -48,3 +48,4 @@ const BaseLayout = ({ children }: PropsWithChildren<Props>) => {
 };
 
 export default BaseLayout;
+
