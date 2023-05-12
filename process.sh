@@ -38,3 +38,15 @@ cd ./spa
 yarn dev
 
 # 3. Run Entire System
+# Dockerize django webapp:
+# Build Container Image
+docker build -f Dockerfile -t ntw/web
+
+# Run Container
+docker run -dt --name web --network host ntw/web
+
+# View logs:
+docker logs web
+
+# Execute command in container:
+docker exec -it web bash
