@@ -50,3 +50,9 @@ docker logs web
 
 # Execute command in container:
 docker exec -it web bash
+
+# Run system with Netflix Euraka discovery:
+cd ./docker/demos/04-discovery-svc
+
+# Build Container Image
+dc up -d

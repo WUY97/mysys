@@ -15,7 +15,7 @@
 
     <ldap:ldap-template id="ldapTemplate" />
 
-    <bean id="authBean" class="com.ntw.auth.core.LdapAuthMgr">
+    <bean id="authBean" class="com.tongtong.auth.core.LdapAuthMgr">
         <property name="ldapTemplate" ref="ldapTemplate" />
     </bean>
 
