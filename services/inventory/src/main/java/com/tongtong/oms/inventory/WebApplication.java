@@ -1,11 +1,10 @@
-package com.tongtong.oms.order;
+package com.tongtong.oms.inventory;
 
 import com.tongtong.common.config.*;
 import com.tongtong.common.security.CORSFilter;
-import com.tongtong.oms.cart.dao.CartDaoFactory;
-import com.tongtong.oms.order.dao.OrderDaoFactory;
+import com.tongtong.oms.inventory.dao.InventoryDaoFactory;
 import jakarta.servlet.ServletContextListener;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,12 +16,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-@SpringBootApplication(scanBasePackages = {"com.tongtong.oms.order", "com.tongtong.oms.cart"})
-@PropertySource(value = {"classpath:config.properties"})
-public class WebApplication extends SpringBootServletInitializer {
 
-    @Autowired
-    private Environment environment;
+@SpringBootApplication
+@PropertySource(value = { "classpath:config.properties" })
+public class WebApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
@@ -34,8 +31,8 @@ public class WebApplication extends SpringBootServletInitializer {
     }
 
     @Bean
-    public FilterRegistrationBean<CORSFilter> corsFilterBean() {
-        FilterRegistrationBean<CORSFilter> bean = new FilterRegistrationBean<>();
+    public FilterRegistrationBean corsFilterBean() {
+        FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new CORSFilter());
         bean.setOrder(2);
         return bean;
@@ -43,6 +40,7 @@ public class WebApplication extends SpringBootServletInitializer {
 
     @Bean
     public EnvConfig envConfig(Environment environment) {
+        // Added this bean to view env vars on console/log
         EnvConfig envConfigBean = new EnvConfig();
         envConfigBean.setEnvironment(environment);
         return envConfigBean;
@@ -58,17 +56,11 @@ public class WebApplication extends SpringBootServletInitializer {
         return bean;
     }
 
-    @Bean("cartDaoFactory")
-    public ServiceLocatorFactoryBean serviceLocatorFactoryBean1() {
+    @Bean("inventoryDaoFactory")
+    public FactoryBean serviceLocatorFactoryBean() {
         ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
-        factoryBean.setServiceLocatorInterface(CartDaoFactory.class);
+        factoryBean.setServiceLocatorInterface(InventoryDaoFactory.class);
         return factoryBean;
     }
 
-    @Bean("orderDaoFactory")
-    public ServiceLocatorFactoryBean serviceLocatorFactoryBean2() {
-        ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
-        factoryBean.setServiceLocatorInterface(OrderDaoFactory.class);
-        return factoryBean;
-    }
 }
