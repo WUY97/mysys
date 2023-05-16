@@ -45,8 +45,8 @@ public class DBOrderLineDao {
 
     private static final String ORDER_INSERT_SQL =
             "insert into OrderLine " +
-                "(orderId, orderLineId, productId, quantity) " +
-                "values(?,?,?,?)";
+                    "(orderId, orderLineId, productId, quantity) " +
+                    "values(?,?,?,?)";
 
     public boolean saveOrderLines(String orderId, List<OrderLine> orderLines) {
         int[] updateStatusArr;

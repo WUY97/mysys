@@ -33,6 +33,7 @@ public class DBCartDao implements CartDao {
     }
 
     private static String SQL_GET_CARTLINES = "select * from cart c, cartline cl where c.id=cl.cartid and c.id=?";
+
     @Override
     public Cart getCart(String id) {
         List<DBCartLine> dbCartLines;
@@ -67,7 +68,7 @@ public class DBCartDao implements CartDao {
         }
         List<DBCartLine> dbCartLines = DBCartLine.createDBCartLines(cart);
         try {
-            int [] updateStatusArr = jdbcTemplate.batchUpdate(CARTLINE_INSERT_SQL, new BatchPreparedStatementSetter() {
+            int[] updateStatusArr = jdbcTemplate.batchUpdate(CARTLINE_INSERT_SQL, new BatchPreparedStatementSetter() {
 
                 @Override
                 public void setValues(PreparedStatement ps, int i)

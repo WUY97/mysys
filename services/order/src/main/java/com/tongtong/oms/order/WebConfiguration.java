@@ -21,10 +21,10 @@ public class WebConfiguration implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext servletContext = sce.getServletContext();
         servletContext.addFilter("AuthenticationFilter", AuthenticationFilter.class)
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.AUTHORIZATION_RESOURCE_PATH + "/*");
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.ORDERS_RESOURCE_PATH, AppConfig.ORDERS_RESOURCE_PATH + "/**", AppConfig.CARTS_RESOURCE_PATH, AppConfig.CARTS_RESOURCE_PATH + "/**");
 
         servletContext.addFilter("AuthorizationFilter", AuthorizationFilter.class)
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.AUTHORIZATION_RESOURCE_PATH + "/*");
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.ORDERS_RESOURCE_PATH + "/**", AppConfig.CARTS_RESOURCE_PATH + "/**");
     }
 
     @Override

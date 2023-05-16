@@ -76,8 +76,8 @@ public class DBOrderDao implements OrderDao {
 
     private static final String ORDER_INSERT_SQL =
             "insert into OrderMaster " +
-                "(id, userId, status, createdDate, createdTime) " +
-                "values(?,?,?,?,?)";
+                    "(id, userId, status, createdDate, createdTime) " +
+                    "values(?,?,?,?,?)";
 
     @Override
     public boolean saveOrder(Order order) {
@@ -102,7 +102,7 @@ public class DBOrderDao implements OrderDao {
 
     @Override
     public boolean removeOrder(String userId, String id) {
-        if (! orderLineDao.removeOrderLines(id)) {
+        if (!orderLineDao.removeOrderLines(id)) {
             return false;
         }
         try {
@@ -117,7 +117,7 @@ public class DBOrderDao implements OrderDao {
 
     @Override
     public boolean removeOrders() {
-        if (! orderLineDao.removeOrdersLines()) {
+        if (!orderLineDao.removeOrdersLines()) {
             return false;
         }
         try {

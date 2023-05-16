@@ -96,9 +96,9 @@ public class OrderServiceImpl {
     }
 
     /**
-     * @param userId    id of user who created the order
-     * @param id        unique id of Order
-     * @return          Order object
+     * @param userId id of user who created the order
+     * @param id     unique id of Order
+     * @return Order object
      */
     public Order fetchOrder(String userId, String id) {
         Order order = getOrderDaoBean().getOrder(userId, id);
@@ -106,8 +106,8 @@ public class OrderServiceImpl {
     }
 
     /**
-     * @param userId    id of user who created the order
-     * @return          List of Order objects
+     * @param userId id of user who created the order
+     * @return List of Order objects
      */
     public List<Order> getOrders(String userId) {
         List<Order> orders = getOrderDaoBean().getOrders(userId);
@@ -121,8 +121,7 @@ public class OrderServiceImpl {
     }
 
     /**
-     *
-     * @param order      order object to be persisted
+     * @param order order object to be persisted
      * @return
      */
     public boolean saveOrder(Order order) {
@@ -130,8 +129,7 @@ public class OrderServiceImpl {
     }
 
     /**
-     *
-     * @param id        unique id of order to be removed
+     * @param id unique id of order to be removed
      * @return
      */
     public boolean removeOrder(String userId, String id) {
@@ -139,9 +137,8 @@ public class OrderServiceImpl {
     }
 
     /**
-     *
-     * @param cartId    Id of User who created the order
-     * @return          created order
+     * @param cartId Id of User who created the order
+     * @return created order
      */
     public Order createOrder(String cartId, String authHeader) throws IOException {
         threadLocal.set(authHeader);

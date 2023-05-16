@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource(value = { "classpath:config.properties" })
+@PropertySource(value = {"classpath:config.properties"})
 public class CartDBConfiguration {
 
     @Autowired
@@ -31,7 +31,7 @@ public class CartDBConfiguration {
         String host = environment.getProperty("database.postgres.host");
         String port = environment.getProperty("database.postgres.port");
         String database = environment.getProperty("database.postgres.schema");
-        return "jdbc:postgresql://"+host+":"+port+"/"+database;
+        return "jdbc:postgresql://" + host + ":" + port + "/" + database;
     }
 
     public String getUser() {

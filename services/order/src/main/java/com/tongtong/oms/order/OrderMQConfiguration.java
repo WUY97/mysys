@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 
 @Configuration
-@PropertySource(value = { "classpath:config.properties" })
+@PropertySource(value = {"classpath:config.properties"})
 public class OrderMQConfiguration {
 
     @Autowired
@@ -42,10 +42,10 @@ public class OrderMQConfiguration {
     @Bean
     public MQConsumer getMessageQueueConsumerBean() throws IOException, TimeoutException {
         MQConsumer mqConsumer =
-        (environment.getProperty("order.queue.type").equals("rabbitmq")) ?
-            new RabbitMQConsumer(environment.getProperty("order.queue.host"),
-                    environment.getProperty("order.queue.name")) :
-                new LocalMQConsumer();
+                (environment.getProperty("order.queue.type").equals("rabbitmq")) ?
+                        new RabbitMQConsumer(environment.getProperty("order.queue.host"),
+                                environment.getProperty("order.queue.name")) :
+                        new LocalMQConsumer();
         mqConsumer.setOrderConsumer(getOrderConsumer());
         try {
             mqConsumer.startConsumer();

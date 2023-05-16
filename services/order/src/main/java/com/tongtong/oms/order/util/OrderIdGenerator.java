@@ -10,7 +10,7 @@ public class OrderIdGenerator {
         }
         String result = "";
         while (num > 0) {
-            result = ref.charAt((int) (num%36)) + result;
+            result = ref.charAt((int) (num % 36)) + result;
             num /= 36;
         }
         return result;

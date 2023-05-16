@@ -58,7 +58,8 @@ public class RabbitMQConsumer implements MQConsumer {
         RabbitMQCallback callback = new RabbitMQCallback();
         callback.setOrderConsumer(getOrderConsumer());
         try {
-            channel.basicConsume(queueName, true, callback, consumerTag -> {});
+            channel.basicConsume(queueName, true, callback, consumerTag -> {
+            });
         } catch (Exception e) {
             throw e;
         }

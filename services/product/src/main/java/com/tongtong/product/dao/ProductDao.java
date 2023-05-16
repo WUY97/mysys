@@ -17,4 +17,6 @@ public interface ProductDao {
     public boolean removeProduct(String id);
 
     public boolean removeProducts();
+
+    List<Product> getProductsByIds(List<String> ids);
 }

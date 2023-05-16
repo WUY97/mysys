@@ -37,13 +37,13 @@ public class UniqueIdGenerator {
     public synchronized long nextId() {
         long currentTimestamp = timestamp();
 
-        if(currentTimestamp < lastTimestamp) {
+        if (currentTimestamp < lastTimestamp) {
             throw new IllegalStateException("Invalid System Clock!");
         }
 
         if (currentTimestamp == lastTimestamp) {
             sequence = (sequence + 1) & maxSequence;
-            if(sequence == 0) {
+            if (sequence == 0) {
                 // Sequence Exhausted, wait till next millisecond.
                 currentTimestamp = waitNextMillis(currentTimestamp);
             }
@@ -84,7 +84,7 @@ public class UniqueIdGenerator {
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 byte[] mac = networkInterface.getHardwareAddress();
                 if (mac != null) {
-                    for(byte macPort: mac) {
+                    for (byte macPort : mac) {
                         sb.append(String.format("%02X", macPort));
                     }
                 }

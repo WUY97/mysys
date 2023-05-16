@@ -36,10 +36,11 @@ public class OrderService {
 
     /**
      * Get all orders
+     *
      * @return
      */
-    @Secured({Role.ADMIN,Role.USER})
-    @GetMapping(produces= MediaType.APPLICATION_JSON_VALUE)
+    @Secured({Role.ADMIN, Role.USER})
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Order>> getOrders() {
         List<Order> orders = getOrderServiceBean().getOrders(getUser());
         return ResponseEntity.ok().body(orders);
@@ -47,11 +48,12 @@ public class OrderService {
 
     /**
      * Get order for an order id
-     * @param id        order id to be fetched
-     * @return          order object
+     *
+     * @param id order id to be fetched
+     * @return order object
      */
-    @Secured({Role.ADMIN,Role.USER})
-    @GetMapping(path= AppConfig.ORDER_PATH, produces=MediaType.APPLICATION_JSON_VALUE)
+    @Secured({Role.ADMIN, Role.USER})
+    @GetMapping(path = AppConfig.ORDER_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Order> getOrder(@PathVariable("id") String id) {
         String userId = getUser();
         if (id.equals("")) {
@@ -63,12 +65,13 @@ public class OrderService {
 
     /**
      * Create a new order. To be used by admin user only. Users create orders through cart.
-     * @param order     order object to create order
-     * @return          order created
+     *
+     * @param order order object to create order
+     * @return order created
      */
     @Secured({Role.ADMIN})
-    @PutMapping(path= AppConfig.ORDER_PATH, consumes=MediaType.APPLICATION_JSON_VALUE,
-        produces=MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = AppConfig.ORDER_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Order> saveOrder(@PathVariable("id") String orderId, @RequestBody Order order) {
         boolean success = getOrderServiceBean().saveOrder(order);
         if (success) {
@@ -84,12 +87,13 @@ public class OrderService {
 
     /**
      * Create order from a cart
-     * @param cartId        id of cart that needs to converted into an order
+     *
+     * @param cartId id of cart that needs to converted into an order
      * @return
      * @throws URISyntaxException
      */
-    @Secured({Role.ADMIN,Role.USER})
-    @PostMapping(path= AppConfig.ORDER_CART_PATH, produces=MediaType.APPLICATION_JSON_VALUE)
+    @Secured({Role.ADMIN, Role.USER})
+    @PostMapping(path = AppConfig.ORDER_CART_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createOrderFromCart(@PathVariable("cartId") String cartId) throws URISyntaxException {
         Order order = null;
         try {
@@ -105,12 +109,13 @@ public class OrderService {
 
     /**
      * Delete order
-     * @param id        id of order to be deleted
+     *
+     * @param id id of order to be deleted
      * @return
      */
-    @Secured({Role.ADMIN,Role.USER})
-    @DeleteMapping(path= AppConfig.ORDER_PATH, consumes=MediaType.APPLICATION_JSON_VALUE,
-        produces=MediaType.TEXT_PLAIN_VALUE)
+    @Secured({Role.ADMIN, Role.USER})
+    @DeleteMapping(path = AppConfig.ORDER_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> removeOrder(@PathVariable("id") String id) {
         boolean success = getOrderServiceBean().removeOrder(getUser(), id);
         if (success) {
@@ -121,10 +126,11 @@ public class OrderService {
 
     /**
      * Delete all orders. To be used only by admin role.
+     *
      * @return
      */
     @Secured({Role.ADMIN})
-    @DeleteMapping(produces=MediaType.TEXT_PLAIN_VALUE)
+    @DeleteMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> removeOrders() {
         boolean success = getOrderServiceBean().removeOrders();
         if (success) {

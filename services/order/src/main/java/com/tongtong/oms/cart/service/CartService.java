@@ -33,7 +33,7 @@ public class CartService {
 
 
     @Secured({Role.ADMIN, Role.USER})
-    @GetMapping(path= AppConfig.CART_PATH, produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = AppConfig.CART_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cart> getCart(@PathVariable("id") String id) {
         if (id.equals("")) {
             id = getUser();
@@ -45,8 +45,8 @@ public class CartService {
     }
 
     @Secured({Role.ADMIN, Role.USER})
-    @PutMapping(path= AppConfig.CART_PATH, consumes=MediaType.APPLICATION_JSON_VALUE,
-            produces=MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = AppConfig.CART_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cart> saveCart(@PathVariable("id") String id, @RequestBody Cart cart) {
         if (!cart.getId().equals(getUser()) || !cart.getId().equals(id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -64,11 +64,11 @@ public class CartService {
     }
 
     @Secured({Role.ADMIN, Role.USER})
-    @PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity modifyCart(@RequestParam("id") String id,
-                            @RequestParam("productId") String productId,
-                            @RequestParam("quantity") float quantity) {
+                                     @RequestParam("productId") String productId,
+                                     @RequestParam("quantity") float quantity) {
         if (id == null || id.equals("")) {
             id = getUser();
         } else if (!id.equals(getUser())) {
@@ -86,8 +86,8 @@ public class CartService {
     }
 
     @Secured({Role.ADMIN, Role.USER})
-    @DeleteMapping(path= AppConfig.CART_PATH, consumes=MediaType.APPLICATION_JSON_VALUE,
-            produces=MediaType.TEXT_PLAIN_VALUE)
+    @DeleteMapping(path = AppConfig.CART_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> removeCart(@PathVariable("id") String id) {
         if (id.equals(getUser())) {
             if (getCartServiceBean().removeCart(id)) {
@@ -98,10 +98,10 @@ public class CartService {
     }
 
     @Secured({Role.ADMIN})
-    @DeleteMapping(produces=MediaType.TEXT_PLAIN_VALUE)
+    @DeleteMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> removeCarts() {
         if (getCartServiceBean().removeCarts()) {
-                return ResponseEntity.ok().body("REMOVED ALL CARTS");
+            return ResponseEntity.ok().body("REMOVED ALL CARTS");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }

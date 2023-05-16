@@ -5,6 +5,7 @@ import com.tongtong.common.security.CORSFilter;
 import com.tongtong.oms.cart.dao.CartDaoFactory;
 import com.tongtong.oms.order.dao.OrderDaoFactory;
 import jakarta.servlet.ServletContextListener;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.boot.SpringApplication;
@@ -13,12 +14,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication(scanBasePackages = {"com.tongtong.oms.order", "com.tongtong.oms.cart"})
-@PropertySource(value = { "classpath:config.properties" })
+@PropertySource(value = {"classpath:config.properties"})
 public class WebApplication extends SpringBootServletInitializer {
 
     @Autowired
@@ -71,5 +74,4 @@ public class WebApplication extends SpringBootServletInitializer {
         factoryBean.setServiceLocatorInterface(OrderDaoFactory.class);
         return factoryBean;
     }
-
 }

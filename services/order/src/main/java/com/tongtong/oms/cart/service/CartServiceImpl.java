@@ -29,9 +29,8 @@ public class CartServiceImpl {
     private String cartDBType;
 
     @PostConstruct
-    public void postConstruct()
-    {
-        this.cartDaoBean = cartDaoFactory.getCartDao("Cart"+cartDBType);
+    public void postConstruct() {
+        this.cartDaoBean = cartDaoFactory.getCartDao("Cart" + cartDBType);
     }
 
     public void setCartDaoBean(CartDao cartDaoBean) {
@@ -43,9 +42,8 @@ public class CartServiceImpl {
     }
 
     /**
-     *
-     * @param id        unique id of cart
-     * @return          cart object
+     * @param id unique id of cart
+     * @return cart object
      */
     public Cart getCart(String id) {
         Cart cart = getCartDaoBean().getCart(id);
@@ -59,7 +57,8 @@ public class CartServiceImpl {
 
     /**
      * Writes cart to DB
-     * @param cart      cart object to be persisted
+     *
+     * @param cart cart object to be persisted
      * @return
      */
     public boolean saveCart(Cart cart) {
@@ -84,7 +83,7 @@ public class CartServiceImpl {
             for (CartLine cartLine : cartLines) {
                 // Update cart line if product already present
                 if (cartLine.getProductId().equals(productId)) {
-                    cartLine.setQuantity(cartLine.getQuantity()+quantity);
+                    cartLine.setQuantity(cartLine.getQuantity() + quantity);
                     foundCartLine = true;
                     break;
                 }
@@ -92,7 +91,7 @@ public class CartServiceImpl {
             if (!foundCartLine) {
                 // Add new cart line
                 int numCartLines = cart.getCartLines().size();
-                int seq = (numCartLines == 0) ? 1 : cart.getCartLines().get(numCartLines-1).getId() + 1;
+                int seq = (numCartLines == 0) ? 1 : cart.getCartLines().get(numCartLines - 1).getId() + 1;
                 CartLine cartLine = new CartLine(seq, productId, quantity);
                 cartLines.add(cartLine);
             }
@@ -108,7 +107,7 @@ public class CartServiceImpl {
             }
         }
         // Save modified cart to DB
-        if (! getCartDaoBean().updateCart(cart)) {
+        if (!getCartDaoBean().updateCart(cart)) {
             return null;
         }
         return cart;
@@ -116,15 +115,15 @@ public class CartServiceImpl {
 
     /**
      * Remove all carts
-     * @return  true is successful
+     *
+     * @return true is successful
      */
     public boolean removeCarts() {
         return getCartDaoBean().removeCarts();
     }
 
     /**
-     *
-     * @param id        unique id of cart to be removed
+     * @param id unique id of cart to be removed
      * @return
      */
     public boolean removeCart(String id) {

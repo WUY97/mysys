@@ -27,8 +27,8 @@ public class InventoryClientImpl implements InventoryClient {
     //private static HttpClient client;
     private static OkHttpClient client;
 
-    @Autowired
-    private LoadBalancerClient loadBalancer;
+//    @Autowired
+//    private LoadBalancerClient loadBalancer;
 
     @PostConstruct
     public void postConstruct() {
@@ -36,20 +36,26 @@ public class InventoryClientImpl implements InventoryClient {
         client = new OkHttpClient();
     }
 
-    public LoadBalancerClient getLoadBalancer() {
-        return loadBalancer;
-    }
+//    public LoadBalancerClient getLoadBalancer() {
+//        return loadBalancer;
+//    }
+//
+//    public void setLoadBalancer(LoadBalancerClient loadBalancer) {
+//        this.loadBalancer = loadBalancer;
+//    }
 
     @Override
     public boolean reserveInventory(InventoryReservation inventoryReservation) throws IOException {
-        ServiceInstance instance = getLoadBalancer().choose(ServiceID.InventorySvc.toString());
-        if (instance == null) {
-        }
-        StringBuilder url = new StringBuilder()
-                .append("http://").append(instance.getHost())
-                .append(":").append(instance.getPort())
-                .append(AppConfig.INVENTORY_RESOURCE_PATH)
-                .append(AppConfig.INVENTORY_RESERVATION_PATH);
+        String url = "http://inventory-service-url";
+//        ServiceInstance instance = getLoadBalancer().choose(ServiceID.InventorySvc.toString());
+//        if (instance == null) {
+//            throw new IOException("Inventory service is not available");
+//        }
+//        StringBuilder url = new StringBuilder()
+//                .append("http://").append(instance.getHost())
+//                .append(":").append(instance.getPort())
+//                .append(AppConfig.INVENTORY_RESOURCE_PATH)
+//                .append(AppConfig.INVENTORY_RESERVATION_PATH);
         String invResJson = (new Gson()).toJson(inventoryReservation);
         RequestBody body = RequestBody.create(invResJson, okhttp3.MediaType.parse("application/json; charset=utf-8"));
         Request.Builder requestBuilder = new Request.Builder()
@@ -60,6 +66,7 @@ public class InventoryClientImpl implements InventoryClient {
         Request request = requestBuilder.build();
         try (Response response = client.newCall(request).execute()) {
             if (response.code() == 200) {
+                return true;
             }
             return false;
         } catch (IOException e) {
