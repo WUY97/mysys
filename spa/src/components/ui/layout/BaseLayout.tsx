@@ -1,6 +1,6 @@
-import { Suspense, PropsWithChildren } from 'react';
+import {Suspense, PropsWithChildren} from 'react';
 import NavPanel from '../nav-panel';
-import { ErrorBoundary } from '@utils';
+import {ErrorBoundary} from '@utils';
 
 type Props = {
     children: React.ReactNode;
@@ -30,10 +30,10 @@ const renderLoader = () => (
     </div>
 );
 
-const BaseLayout = ({ children }: PropsWithChildren<Props>) => {
+const BaseLayout = ({children}: PropsWithChildren<Props>) => {
     return (
         <>
-            <NavPanel />
+            <NavPanel/>
             <Suspense fallback={renderLoader()}>
                 <ErrorBoundary>
                     <div className='py-16 bg-gray-50 overflow-hidden min-h-screen'>

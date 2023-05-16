@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class DBAuthTest extends TestCase
-{
+public class DBAuthTest extends TestCase {
     private AuthMgr authBean;
 
     public void setUp() throws Exception {
@@ -28,17 +27,15 @@ public class DBAuthTest extends TestCase
      *
      * @param testName name of the test case
      */
-    public DBAuthTest(String testName )
-    {
-        super( testName );
+    public DBAuthTest(String testName) {
+        super(testName);
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
-    {
-        return new TestSuite( DBAuthTest.class );
+    public static Test suite() {
+        return new TestSuite(DBAuthTest.class);
     }
 
     /**
@@ -52,35 +49,32 @@ public class DBAuthTest extends TestCase
     /**
      * Test User Authentication
      */
-    public void testUserAuthentication()
-    {
+    public void testUserAuthentication() {
         boolean pass = authBean.authenticate(TestConfig.Test_Admin_Auth.getId(),
-                                            TestConfig.Test_Admin_Auth.getPassword());
+                TestConfig.Test_Admin_Auth.getPassword());
         Assert.assertEquals(true, pass);
-        pass = authBean.authenticate("WrongId",TestConfig.Test_Admin_Auth.getPassword());
+        pass = authBean.authenticate("WrongId", TestConfig.Test_Admin_Auth.getPassword());
         Assert.assertEquals(false, pass);
-        pass = authBean.authenticate(TestConfig.Test_Admin_Auth.getId(),"WrongPassword");
+        pass = authBean.authenticate(TestConfig.Test_Admin_Auth.getId(), "WrongPassword");
         Assert.assertEquals(false, pass);
     }
 
     /**
      * Test User Details
      */
-    public void testUserDetails()
-    {
+    public void testUserDetails() {
         UserAuth userAuth = authBean.getUserAuth(TestConfig.Test_Admin_Auth.getId());
         Assert.assertNotNull(userAuth);
         Assert.assertEquals(TestConfig.Test_Admin_Auth.getId(), userAuth.getId());
         Assert.assertEquals(TestConfig.Test_Admin_Auth.getName(), userAuth.getName());
-        System.out.println("Stored password for "+userAuth.getId()+" is "+userAuth.getPassword());
+        System.out.println("Stored password for " + userAuth.getId() + " is " + userAuth.getPassword());
         Assert.assertEquals(TestConfig.Test_Admin_Auth.getEmailId(), userAuth.getEmailId());
     }
 
     /**
      * Test User Role
      */
-    public void testUserRole()
-    {
+    public void testUserRole() {
         List<String> userRoles = authBean.getUserRole(TestConfig.Test_Admin_Auth.getId());
         Assert.assertEquals(2, userRoles.size());
         System.out.println(userRoles.get(0));

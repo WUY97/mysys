@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
-import type { NextPage } from 'next';
+import {useState, useEffect, useRef} from 'react';
+import type {NextPage} from 'next';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Link from 'next/link';
 
-import { BaseLayout } from "@ui"
+import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
-import { useAuthState, useAuthDispatch } from '@context';
-import { ProductProp, CartLine } from '@types'
+import {useAuthState, useAuthDispatch} from '@context';
+import {ProductProp, CartLine} from '@types'
 
 const Product: NextPage = () => {
-    const { accessToken, userId } = useAuthState();
+    const {accessToken, userId} = useAuthState();
     const [product, setProduct] = useState<ProductProp>();
     const [remBtnVisible, setRemBtnVisible] = useState<string>('hidden');
     const qtyRef = useRef<HTMLSelectElement>(null);
@@ -27,7 +27,7 @@ const Product: NextPage = () => {
                 const productResponse = await axios.get<ProductProp>(
                     Constants.PRODUCT_SVC_URL + router.query.id,
                     {
-                        headers: { Authorization: `Bearer ${accessToken}` },
+                        headers: {Authorization: `Bearer ${accessToken}`},
                     }
                 );
                 console.log(productResponse.data);
@@ -38,7 +38,7 @@ const Product: NextPage = () => {
                 setProduct(productResponse.data);
 
                 const cartResponse = await axios.get(Constants.CART_SVC_URL + getCartId(), {
-                    headers: { Authorization: `Bearer ${accessToken}` },
+                    headers: {Authorization: `Bearer ${accessToken}`},
                 });
 
                 console.log(cartResponse.data);
@@ -156,7 +156,7 @@ const Product: NextPage = () => {
                         </div>
                         <div className="col-xs-12 col-md-7">
                             <h2 className="text-lg capitalize">{product.name}</h2>
-                            <SampleText productName={product.name} />
+                            <SampleText productName={product.name}/>
                             <div className="form-horizontal">
                                 <h3>{product.price} &#36;</h3>
                                 <div className="form-group">
@@ -170,7 +170,8 @@ const Product: NextPage = () => {
                                         </select>
                                     </div>
                                     <div>
-                                        <Link href="/login" className="btn btn-info m-1 float-right">Login to Add to Cart</Link>
+                                        <Link href="/login" className="btn btn-info m-1 float-right">Login to Add to
+                                            Cart</Link>
                                         <Link href="/products" className="btn btn-info m-1 float-right">Products</Link>
                                         <Link href="/cart" className="btn btn-success m-1 float-right">Cart</Link>
                                     </div>
@@ -192,7 +193,7 @@ const Product: NextPage = () => {
                     </div>
                     <div className="col-xs-12 col-md-7">
                         <h2 className="text-lg capitalize">{product.name}</h2>
-                        <SampleText productName={product.name} />
+                        <SampleText productName={product.name}/>
                         <div className="form-horizontal">
                             <h3>{product.price} &#36;</h3>
                             <div className="form-group">
@@ -207,11 +208,11 @@ const Product: NextPage = () => {
                                 </div>
                                 <div>
                                     <button onClick={e => addToCart(cartId, product.id, e)}
-                                        className="btn btn-primary m-1">
+                                            className="btn btn-primary m-1">
                                         Add to cart
                                     </button>
                                     <button onClick={e => removeFromCart(cartId, product.id, e)}
-                                        className={`btn btn-warning mt-1 mb-1 ${remBtnVisible === "hidden" ? "hidden" : ""}`}>
+                                            className={`btn btn-warning mt-1 mb-1 ${remBtnVisible === "hidden" ? "hidden" : ""}`}>
                                         Remove
                                     </button>
                                     <Link href="/products" className="btn btn-info m-1 float-right">Products</Link>
@@ -226,7 +227,7 @@ const Product: NextPage = () => {
     )
 }
 
-const SampleText: React.FC<{ productName: String }> = ({ productName }) => {
+const SampleText: React.FC<{ productName: String }> = ({productName}) => {
     return (<p>
         {productName}, internationally acclaimed textbook provides a comprehensive introduction to the
         modern study of computer algorithms. It covers a broad range of algorithms in depth, yet makes

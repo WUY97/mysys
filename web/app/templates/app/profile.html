@@ -5,7 +5,7 @@
     .profile-section-header {
         font-size: 1.2em;
         color: #666;
-        text-align:center;
+        text-align: center;
         margin: 2em 0 1em 0;
     }
 </style>
@@ -43,22 +43,22 @@
     </ul>
     <h3 class="profile-section-header">Shipping Addresses</h3>
     <div class="row">
-    {% for address in userProfile.shippingAddresses %}
+        {% for address in userProfile.shippingAddresses %}
         <div class="col-md-6">
             <div class="list-group>">
                 <div class="list-group-item">
-                  <h4>Address {{ forloop.counter }}</h4>
-                  <div>
-                      <p>{{address.street}}</p>
-                      <p>{{address.area}}</p>
-                      <p>{{address.city}}</p>
-                      <p>{{address.state}}</p>
-                      <p>{{address.country}}</p>
-                  </div>
+                    <h4>Address {{ forloop.counter }}</h4>
+                    <div>
+                        <p>{{address.street}}</p>
+                        <p>{{address.area}}</p>
+                        <p>{{address.city}}</p>
+                        <p>{{address.state}}</p>
+                        <p>{{address.country}}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 
 </div>

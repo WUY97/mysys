@@ -7,16 +7,16 @@
                            http://www.springframework.org/schema/ldap
                            http://www.springframework.org/schema/ldap/spring-ldap.xsd">
 
-<ldap:context-source
+    <ldap:context-source
             url="ldap://192.168.56.101:389"
             base="dc=newtechways,dc=com"
             username="cn=Manager,dc=newtechways,dc=com"
-            password="secret" />
+            password="secret"/>
 
-    <ldap:ldap-template id="ldapTemplate" />
+    <ldap:ldap-template id="ldapTemplate"/>
 
     <bean id="authBean" class="com.tongtong.auth.core.LdapAuthMgr">
-        <property name="ldapTemplate" ref="ldapTemplate" />
+        <property name="ldapTemplate" ref="ldapTemplate"/>
     </bean>
 
 </beans>

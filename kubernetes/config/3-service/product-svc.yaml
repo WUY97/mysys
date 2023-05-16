@@ -31,54 +31,54 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-       maxUnavailable: 25%
-       maxSurge: 1
+      maxUnavailable: 25%
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: product-svc
     spec:
       initContainers:
-      - name: wait-for-postgres
-        image: postgres
-        command: [ '/bin/bash','-c', 'until pg_isready -h postgres.data; do echo waiting for postgres; sleep 2; done;' ]
-      - name: wait-for-cassandra
-        image: cassandra
-        command: [ '/bin/bash','-c', 'until echo exit | cqlsh cassandra.data; do echo waiting for cassandra; sleep 5; done;' ]
+        - name: wait-for-postgres
+          image: postgres
+          command: [ '/bin/bash','-c', 'until pg_isready -h postgres.data; do echo waiting for postgres; sleep 2; done;' ]
+        - name: wait-for-cassandra
+          image: cassandra
+          command: [ '/bin/bash','-c', 'until echo exit | cqlsh cassandra.data; do echo waiting for cassandra; sleep 5; done;' ]
       containers:
-      - name: product-svc-cont
-        image: IMAGE_REGISTRY_PATH/services:REVISION_ID
-        args: ["product"]
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8080
-        volumeMounts:
-          - name: log-data
-            mountPath: /var/log/oms
-        envFrom:
-          - configMapRef:
-              name: service-config
-        env:
-          - name: database.type
-            value: CQL
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: 8080
-          initialDelaySeconds: 180
-        readinessProbe:
-          httpGet:
-            path: /status
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 2
+        - name: product-svc-cont
+          image: IMAGE_REGISTRY_PATH/services:REVISION_ID
+          args: [ "product" ]
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: log-data
+              mountPath: /var/log/oms
+          envFrom:
+            - configMapRef:
+                name: service-config
+          env:
+            - name: database.type
+              value: CQL
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8080
+            initialDelaySeconds: 180
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 2
       volumes:
         - name: log-data
-          emptyDir: {}
-      topologySpreadConstraints:                                                                                                                     
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app: product-svc
+          emptyDir: { }
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: product-svc

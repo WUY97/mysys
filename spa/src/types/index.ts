@@ -1,4 +1,4 @@
-import { NextRouter } from 'next/router';
+import {NextRouter} from 'next/router';
 
 export interface AuthState {
     isLoggedIn: boolean;

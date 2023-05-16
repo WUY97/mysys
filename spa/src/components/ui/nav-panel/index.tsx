@@ -1,18 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {useRouter} from 'next/router';
+import {Disclosure, Menu, Transition} from '@headlessui/react';
+import {Bars3Icon, BellIcon, XMarkIcon} from '@heroicons/react/24/outline';
 
-import { useAuthState } from '@context'
-
+import {useAuthState} from '@context'
 
 
 const navigation = [
-    { name: 'Home', href: '/', current: false },
-    { name: 'Products', href: '/products', current: false },
-    { name: 'Cart', href: '/cart', current: false },
+    {name: 'Home', href: '/', current: false},
+    {name: 'Products', href: '/products', current: false},
+    {name: 'Cart', href: '/cart', current: false},
 ];
 
 function classNames(...classes: string[]) {
@@ -20,9 +19,9 @@ function classNames(...classes: string[]) {
 }
 
 const NavUser: React.FC = () => {
-    const { isLoggedIn } = useAuthState();
+    const {isLoggedIn} = useAuthState();
     const router = useRouter();
-    
+
     for (let nav of navigation) {
         if (nav.href === router.pathname) {
             nav.current = true;
@@ -32,7 +31,8 @@ const NavUser: React.FC = () => {
     return (<>{
         isLoggedIn ? (<Menu as='div' className='relative ml-3'>
             <div>
-                <Menu.Button className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
+                <Menu.Button
+                    className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                     <span className='sr-only'>Open user menu</span>
                     <img
                         className='h-8 w-8 rounded-full'
@@ -50,10 +50,11 @@ const NavUser: React.FC = () => {
                 leaveFrom='transform opacity-100 scale-100'
                 leaveTo='transform opacity-0 scale-95'
             >
-                <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                    { }
+                <Menu.Items
+                    className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                    {}
                     <Menu.Item>
-                        {({ active }) => (
+                        {({active}) => (
                             <Link
                                 href='/logout'
                                 className={classNames(
@@ -69,7 +70,8 @@ const NavUser: React.FC = () => {
             </Transition>
         </Menu>) : (<Menu as='div' className='relative ml-3'>
             <div>
-                <Menu.Button className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
+                <Menu.Button
+                    className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                     <span className='sr-only'>Open user menu</span>
                     <img
                         className='h-8 w-8 rounded-full'
@@ -87,10 +89,11 @@ const NavUser: React.FC = () => {
                 leaveFrom='transform opacity-100 scale-100'
                 leaveTo='transform opacity-0 scale-95'
             >
-                <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                    { }
+                <Menu.Items
+                    className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                    {}
                     <Menu.Item>
-                        {({ active }) => (
+                        {({active}) => (
                             <Link
                                 href='/login'
                                 className={classNames(
@@ -111,13 +114,14 @@ const NavUser: React.FC = () => {
 const NavPanel: React.FC = () => {
     return (
         <Disclosure as='nav' className='bg-gray-800'>
-            {({ open }) => (
+            {({open}) => (
                 <>
                     <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
                         <div className='relative flex h-16 items-center justify-between'>
                             <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                                 {/* Mobile menu button*/}
-                                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                                <Disclosure.Button
+                                    className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                                     <span className='sr-only'>
                                         Open main menu
                                     </span>
@@ -171,7 +175,8 @@ const NavPanel: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+                            <div
+                                className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
                                 <button
                                     type='button'
                                     className='rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
@@ -184,7 +189,7 @@ const NavPanel: React.FC = () => {
                                         aria-hidden='true'
                                     />
                                 </button>
-                                <NavUser />
+                                <NavUser/>
                             </div>
                         </div>
                     </div>

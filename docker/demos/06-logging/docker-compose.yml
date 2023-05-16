@@ -55,7 +55,7 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     restart: unless-stopped
-    
+
 
   kibana:
     image: kibana:7.13.2
@@ -70,7 +70,7 @@ services:
     restart: unless-stopped
     depends_on:
       - "elasticsearch"
-      
+
 
 
 
@@ -113,7 +113,7 @@ services:
     depends_on:
       - "gateway-svc"
 
-    
+
   web:
     build:
       context: ../../web
@@ -137,7 +137,7 @@ services:
     depends_on:
       - "fluentd"
 
-      
+
   services:
     build:
       context: ../../services

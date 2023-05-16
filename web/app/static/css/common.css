@@ -16,9 +16,11 @@ and open the template in the editor.
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.19);
     opacity: 1;
 }
+
 .navbar-nav > li {
-    text-align:center;
+    text-align: center;
 }
+
 .navbar-nav > li > a {
     background: none;
     color: #666 !important;
@@ -27,52 +29,62 @@ and open the template in the editor.
     letter-spacing: 1px;
     font-weight: 400;
 }
+
 .nav > li > a {
-	padding: 0 2em !important;
+    padding: 0 2em !important;
 }
+
 .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
-	color: white;
+    color: white;
 }
+
 .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
     color: white;
-	background: none;
+    background: none;
     text-decoration: none;
 }
+
 .navbar-toggler {
     border: 1px solid #666 !important;
 }
+
 .dropdown-menu {
     background-color: #fff;
 }
+
 .dropdown-item {
     color: #666;
     text-align: center;
 }
+
 .dropdown-item:hover {
     color: #000;
     background-color: #eee;
 }
+
 nav a:hover,
 nav a:focus {
-	outline: none;
+    outline: none;
 }
 
 
 .navbar-brand {
-    padding:0px 10px;
+    padding: 0px 10px;
 }
+
 .navbar-brand img {
-    height:50px;
+    height: 50px;
     padding: 10px;
 }
 
 
 .logo {
-	float:left;
-	text-align:center;
+    float: left;
+    text-align: center;
 }
+
 .logo img {
-    max-height:40px;
+    max-height: 40px;
     width: auto;
     padding: 4px 7px 3px 7px;
     background-color: white;
@@ -80,10 +92,11 @@ nav a:focus {
 }
 
 .page-header {
-    text-align:center;
+    text-align: center;
     margin-top: 5em;
     padding: 1em;
 }
+
 .page-header h1 {
     font-size: 1.5em;
     text-align: center;
@@ -92,22 +105,23 @@ nav a:focus {
 
 /*This setting affects ipad - 768px */
 @media screen and (max-width: 800px) {
-	.navbar-nav > li a {
-		margin: 1em 0;
-	}
+    .navbar-nav > li a {
+        margin: 1em 0;
+    }
 }
+
 @media screen and (max-width: 640px) {
-	.navbar-nav > li a {
-		margin: .75em 0;
-	}
+    .navbar-nav > li a {
+        margin: .75em 0;
+    }
 }
 
 
 /* ----- Home CSS ----- */
 
 .list-group-item a {
-  color: #666 !important;
-  text-decoration: none;
+    color: #666 !important;
+    text-decoration: none;
 }
 
 /* ----- Login CSS ----- */
@@ -125,28 +139,34 @@ nav a:focus {
     max-height: 80vh;
     object-fit: contain;
 }
+
 .product-thumbnail {
-    height:26em;
+    height: 26em;
     border: 1px solid #ccc;
     margin-bottom: 2em;
     text-align: center;
 }
+
 .product-thumbnail a {
     text-decoration: none
 }
+
 .product-thumbnail a img {
     padding-top: 1em;
     max-height: 18em;
 }
+
 .product-caption {
     text-align: left;
     padding: 1em;
     color: black;
 }
+
 .product-caption h3 {
     font-size: 1.2em;
     text-transform: capitalize;
 }
+
 .product-caption p {
     font-size: 1em;
 }
@@ -155,8 +175,9 @@ nav a:focus {
 /* ----- Order CSS ----- */
 
 .order-id {
-    font-size:1.2em;
+    font-size: 1.2em;
 }
+
 .order-id a {
     color: #666;
     text-decoration: none;
@@ -166,8 +187,9 @@ nav a:focus {
 /* ----- Data & Monitor CSS ----- */
 
 .well {
-    padding:1em;
+    padding: 1em;
 }
+
 @media screen and (max-width: 800px) {
     .well {
         margin: 1em;

@@ -1,33 +1,31 @@
 package com.tongtong.auth;
 
 import com.tongtong.common.config.AppConfig;
-import com.tongtong.common.security.AuthenticationInterceptor;
-import com.tongtong.common.security.AuthorizationInterceptor;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.tongtong.common.security.AuthenticationFilter;
+import com.tongtong.common.security.AuthorizationFilter;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 
-@Configuration
-public class WebConfiguration implements WebMvcConfigurer {
+import java.util.EnumSet;
+
+@WebListener
+public class WebConfiguration implements ServletContextListener {
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthenticationInterceptor())
-                .order(1)
-                .addPathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH + "/**")
-                .excludePathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH
-                        + AppConfig.AUTH_TOKEN_PATH)
-                .excludePathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH
-                        + AppConfig.AUTH_TOKEN_USER_PATH)
-                .addPathPatterns(AppConfig.USERS_PROFILE_RESOURCE_PATH)
-                .addPathPatterns(AppConfig.USERS_PROFILE_RESOURCE_PATH + "/**");
+    public void contextInitialized(ServletContextEvent sce) {
+        ServletContext servletContext = sce.getServletContext();
+        servletContext.addFilter("AuthenticationFilter", AuthenticationFilter.class)
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.AUTHORIZATION_RESOURCE_PATH + "/*");
 
-        registry.addInterceptor(new AuthorizationInterceptor())
-                .order(2)
-                .addPathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH + "/**")
-                .excludePathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH
-                        + AppConfig.AUTH_TOKEN_PATH)
-                .excludePathPatterns(AppConfig.AUTHORIZATION_RESOURCE_PATH
-                        + AppConfig.AUTH_TOKEN_USER_PATH)
-                .addPathPatterns(AppConfig.USERS_PROFILE_RESOURCE_PATH + "/**");
+        servletContext.addFilter("AuthorizationFilter", AuthorizationFilter.class)
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.AUTHORIZATION_RESOURCE_PATH + "/*");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
     }
 }
+
+

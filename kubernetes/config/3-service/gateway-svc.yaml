@@ -32,44 +32,44 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-       maxUnavailable: 25%
-       maxSurge: 1
+      maxUnavailable: 25%
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: gateway-svc
     spec:
       containers:
-      - name: gateway-svc-cont
-        image: IMAGE_REGISTRY_PATH/services:REVISION_ID
-        args: ["gateway"]
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8080
-        volumeMounts:
-          - name: log-data
-            mountPath: /var/log/oms
-        envFrom:
-          - configMapRef:
-              name: service-config
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: 8080
-          initialDelaySeconds: 180
-        readinessProbe:
-          httpGet:
-            path: /status
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 2
+        - name: gateway-svc-cont
+          image: IMAGE_REGISTRY_PATH/services:REVISION_ID
+          args: [ "gateway" ]
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: log-data
+              mountPath: /var/log/oms
+          envFrom:
+            - configMapRef:
+                name: service-config
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8080
+            initialDelaySeconds: 180
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 2
       volumes:
         - name: log-data
-          emptyDir: {}
-      topologySpreadConstraints:                                                                                                                     
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app: gateway-svc
+          emptyDir: { }
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: gateway-svc

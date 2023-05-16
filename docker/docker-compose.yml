@@ -72,7 +72,7 @@ services:
     restart: unless-stopped
     depends_on:
       - "elasticsearch"
-      
+
 
   fluentd:
     build:
@@ -104,7 +104,7 @@ services:
       - "14271:14271"
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
-    command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
+    command: [ "--reporter.grpc.host-port=jaeger-collector:14250" ]
     restart: unless-stopped
     depends_on:
       - "jaeger-collector"
@@ -120,7 +120,7 @@ services:
       - "14269:14269"
     environment:
       - SPAN_STORAGE_TYPE=elasticsearch
-#      - ES_SERVER_URLS="elasticsearch:9200"
+    #      - ES_SERVER_URLS="elasticsearch:9200"
     command: [
       "--es.server-urls=http://elasticsearch:9200",
       "--es.num-shards=1",
@@ -128,7 +128,7 @@ services:
       "--log-level=error"
     ]
     restart: unless-stopped
-    
+
   jaeger-query:
     image: jaegertracing/jaeger-query:1.42
     container_name: jaeger-query
@@ -391,7 +391,7 @@ services:
     ports:
       - "8081:8080"
       - "6001:6005"
-    env_file: .env 
+    env_file: .env
     environment:
       - eureka.instance.hostname=admin-svc
     volumes:
@@ -414,7 +414,7 @@ services:
     ports:
       - "8082:8080"
       - "6002:6005"
-    env_file: .env 
+    env_file: .env
     environment:
       - eureka.instance.hostname=auth-svc
     volumes:
@@ -437,7 +437,7 @@ services:
     ports:
       - "8083:8080"
       - "6003:6005"
-    env_file: .env 
+    env_file: .env
     environment:
       - eureka.instance.hostname=product-svc
     volumes:
@@ -460,7 +460,7 @@ services:
     ports:
       - "8084:8080"
       - "6004:6005"
-    env_file: .env 
+    env_file: .env
     environment:
       - eureka.instance.hostname=order-svc
     volumes:
@@ -484,7 +484,7 @@ services:
     ports:
       - "8085:8080"
       - "6005:6005"
-    env_file: .env 
+    env_file: .env
     environment:
       - eureka.instance.hostname=inventory-svc
     volumes:

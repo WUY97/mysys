@@ -1,17 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect, useRef } from 'react';
-import type { NextPage } from 'next';
+import {useState, useEffect, useRef} from 'react';
+import type {NextPage} from 'next';
 import axios from 'axios';
 import Link from 'next/link';
 
-import { BaseLayout } from "@ui"
+import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
-import { useAuthState } from '@context';
-import { CartLine, CartData } from '@types'
+import {useAuthState} from '@context';
+import {CartLine, CartData} from '@types'
 
 const Cart: NextPage = () => {
     const [cart, setCart] = useState<CartData | null>(null);
-    const { userId, accessToken } = useAuthState();
+    const {userId, accessToken} = useAuthState();
 
     useEffect(() => {
         console.log('*************************');
@@ -65,7 +65,8 @@ const Cart: NextPage = () => {
     }
 
     if (!accessToken || !userId) {
-        return (<BaseLayout><h1>Login to View Your Cart</h1><Link className="btn btn-info m-1" href='/login'>Login</Link></BaseLayout>)
+        return (<BaseLayout><h1>Login to View Your Cart</h1><Link className="btn btn-info m-1"
+                                                                  href='/login'>Login</Link></BaseLayout>)
     }
 
     const mycart = cart;
@@ -79,10 +80,10 @@ const Cart: NextPage = () => {
         <div className="col-sm-6 col-md-4" key={cartLine.id}>
             <div className="thumbnail product-thumbnail">
                 <Link href={'/products/' + cartLine.productId}>
-                    <img className="img-thumbnail img-fluid" src={cartLine.product?.imageUrl} alt="product name" />
+                    <img className="img-thumbnail img-fluid" src={cartLine.product?.imageUrl} alt="product name"/>
                 </Link>
                 <div className="product-details">
-                    <h4 style={{ textTransform: 'capitalize' }}>{cartLine.product?.name}</h4>
+                    <h4 style={{textTransform: 'capitalize'}}>{cartLine.product?.name}</h4>
                     <p>{cartLine.productId}</p>
                     <h5>Price: {cartLine.product?.price} &#36;</h5>
                     <p>Qty: {cartLine.quantity}</p>
@@ -96,7 +97,7 @@ const Cart: NextPage = () => {
         <BaseLayout>
             <div>
                 <div className="container">
-                    <div style={{ textAlign: "center", padding: "2em 0" }}>
+                    <div style={{textAlign: "center", padding: "2em 0"}}>
                         <h3>Cart</h3>
                     </div>
                     <div className="row">

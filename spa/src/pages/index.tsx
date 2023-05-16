@@ -1,7 +1,7 @@
-import type { NextPage } from 'next';
-import { withRouter } from 'next/router';
-import { BaseLayout } from '@ui';
-import { useAuthState } from '@context';
+import type {NextPage} from 'next';
+import {withRouter} from 'next/router';
+import {BaseLayout} from '@ui';
+import {useAuthState} from '@context';
 
 const App: NextPage = () => {
     const authState = useAuthState();

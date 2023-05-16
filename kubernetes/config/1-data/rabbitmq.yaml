@@ -41,11 +41,11 @@ spec:
           name: rabbitmq-storage
       livenessProbe:
         exec:
-          command: ["rabbitmq-diagnostics", "ping"]
+          command: [ "rabbitmq-diagnostics", "ping" ]
         initialDelaySeconds: 120
       readinessProbe:
         exec:
-          command: ["rabbitmq-diagnostics", "ping"]
+          command: [ "rabbitmq-diagnostics", "ping" ]
         initialDelaySeconds: 30
         periodSeconds: 2
   volumes:

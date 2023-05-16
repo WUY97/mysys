@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
-import type { NextPage } from 'next';
-import { useEffect } from 'react';
-import { BaseLayout } from '@/components/ui';
+import {useRouter} from 'next/router';
+import type {NextPage} from 'next';
+import {useEffect} from 'react';
+import {BaseLayout} from '@/components/ui';
 
 const Logout: NextPage = () => {
     const router = useRouter();

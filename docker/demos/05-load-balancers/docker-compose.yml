@@ -49,7 +49,7 @@ services:
     volumes:
       - app-logs:/var/log/oms
 
-    
+
   web-1:
     build:
       context: ../../web
@@ -82,7 +82,7 @@ services:
     volumes:
       - app-logs:/var/log/oms
 
-      
+
   services:
     build:
       context: ../../services
@@ -199,7 +199,7 @@ services:
       - eureka.instance.hostname=product-svc-2
     volumes:
       - app-logs:/var/log/oms
-      
+
   order-svc:
     image: ntw/services
     container_name: order-svc

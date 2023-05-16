@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-@SpringBootApplication(scanBasePackages = {"com.tongtong.auth", "com.tongtong.oms.user"})
+@SpringBootApplication(scanBasePackages = {"com.tongtong.auth"})
 @PropertySource(value = {"classpath:config.properties"})
 public class WebApplication extends SpringBootServletInitializer {
 

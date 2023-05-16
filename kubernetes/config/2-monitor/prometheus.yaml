@@ -31,14 +31,14 @@ spec:
       ports:
         - protocol: TCP
           containerPort: 9090
-      args: ["--config.file=/etc/prometheus/prometheus.yml"]
+      args: [ "--config.file=/etc/prometheus/prometheus.yml" ]
       volumeMounts:
-      - name: config-volume-1
-        mountPath: /etc/prometheus/prometheus.yml
-        subPath: prometheus.yml
-      - name: config-volume-2
-        mountPath: /etc/prometheus/rules.yml
-        subPath: rules.yml
+        - name: config-volume-1
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: prometheus.yml
+        - name: config-volume-2
+          mountPath: /etc/prometheus/rules.yml
+          subPath: rules.yml
       livenessProbe:
         httpGet:
           path: /

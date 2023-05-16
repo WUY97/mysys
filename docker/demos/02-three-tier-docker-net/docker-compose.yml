@@ -31,7 +31,7 @@ services:
     volumes:
       - app-logs:/var/log/oms
 
-      
+
   services:
     build:
       context: ../../services

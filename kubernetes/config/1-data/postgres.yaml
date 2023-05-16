@@ -33,7 +33,7 @@ spec:
       env:
         - name: DATA_SOURCE_NAME
           value: "postgresql://postgres:postgres@postgres:5432/oms?sslmode=disable"
-      
+
     - name: postgres-cont
       image: IMAGE_REGISTRY_PATH/postgres:REVISION_ID
       imagePullPolicy: Always
@@ -46,17 +46,17 @@ spec:
           subPath: postgres
       livenessProbe:
         exec:
-           command:
-           - /bin/bash
-           - -c
-           - /check-readiness.sh
+          command:
+            - /bin/bash
+            - -c
+            - /check-readiness.sh
         initialDelaySeconds: 120
       readinessProbe:
         exec:
-           command:
-           - /bin/bash
-           - -c
-           - /check-readiness.sh
+          command:
+            - /bin/bash
+            - -c
+            - /check-readiness.sh
         initialDelaySeconds: 30
         periodSeconds: 5
       env:

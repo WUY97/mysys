@@ -18,10 +18,10 @@ function handleAddToCartClick(productId, url) {
     var elt = document.getElementById('qtyAdd' + productId);
     var selection = elt.options[elt.selectedIndex].value;
     var params = 'productId=' + productId + '&quantity=' + selection
-                        + '&action=add';
+        + '&action=add';
     reqA = new XMLHttpRequest();
     reqA.open("POST", url, true);
-    reqA.setRequestHeader('X-CSRFToken',csrftoken);
+    reqA.setRequestHeader('X-CSRFToken', csrftoken);
     reqA.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     reqA.onreadystatechange = callbackAddToCart;
     reqA.send(params);
@@ -39,10 +39,10 @@ function callbackRemoveFromCart() {
 }
 
 function handleRemoveFromCartClick(productId, url) {
-    var params = 'productId=' + productId +'&action=remove';
+    var params = 'productId=' + productId + '&action=remove';
     reqD = new XMLHttpRequest();
     reqD.open("POST", url, true);
-    reqD.setRequestHeader('X-CSRFToken',csrftoken);
+    reqD.setRequestHeader('X-CSRFToken', csrftoken);
     reqD.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     reqD.onreadystatechange = callbackRemoveFromCart;
     reqD.send(params);

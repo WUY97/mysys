@@ -14,7 +14,7 @@ spec:
       nodePort: 32100
   selector:
     app: web-app
-#  type: LoadBalancer
+  #  type: LoadBalancer
   type: NodePort
 
 ---
@@ -31,46 +31,46 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-       maxUnavailable: 25%
-       maxSurge: 1
+      maxUnavailable: 25%
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: web-app
     spec:
       containers:
-      - name: web-app-static-cont
-        image: IMAGE_REGISTRY_PATH/lb-web:REVISION_ID
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 80      
-        env:
-          - name: WEB_HOSTS
-            value: localhost
-          - name: WEB_PORT
-            value: "8000"
-      - name: web-app-dynamic-cont
-        image: IMAGE_REGISTRY_PATH/web:REVISION_ID
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8000
-        envFrom:
-          - configMapRef:
-              name: web-config
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: 8000
-          initialDelaySeconds: 60
-        readinessProbe:
-          httpGet:
-            path: /status
-            port: 8000
-          initialDelaySeconds: 30
-          periodSeconds: 2
-        volumeMounts:
-          - name: log-data
-            mountPath: /var/log/oms
+        - name: web-app-static-cont
+          image: IMAGE_REGISTRY_PATH/lb-web:REVISION_ID
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: WEB_HOSTS
+              value: localhost
+            - name: WEB_PORT
+              value: "8000"
+        - name: web-app-dynamic-cont
+          image: IMAGE_REGISTRY_PATH/web:REVISION_ID
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: web-config
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8000
+            initialDelaySeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 2
+          volumeMounts:
+            - name: log-data
+              mountPath: /var/log/oms
       volumes:
         - name: log-data
-          emptyDir: {}
+          emptyDir: { }

@@ -15,7 +15,7 @@ spec:
       name: default
   selector:
     app: cassandra
-    
+
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -44,17 +44,17 @@ spec:
               containerPort: 9042
           livenessProbe:
             exec:
-               command:
-               - /bin/bash
-               - -c
-               - /check-readiness.sh
+              command:
+                - /bin/bash
+                - -c
+                - /check-readiness.sh
             initialDelaySeconds: 180
           readinessProbe:
             exec:
-               command:
-               - /bin/bash
-               - -c
-               - /check-readiness.sh
+              command:
+                - /bin/bash
+                - -c
+                - /check-readiness.sh
             initialDelaySeconds: 60
             periodSeconds: 2
           envFrom:
@@ -74,21 +74,21 @@ spec:
               memory: "512Mi"
             limits:
               cpu: 1
-              memory: "2048Mi"              
-      topologySpreadConstraints:                                                                                                                     
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app: cassandra
+              memory: "2048Mi"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: cassandra
   volumeClaimTemplates:
-  - metadata:
-      name: cassandra-storage-claim
-      namespace: data
-    spec:
-      accessModes: 
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: cassandra-storage-claim
+        namespace: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi

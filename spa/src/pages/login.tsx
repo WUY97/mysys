@@ -1,24 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from 'react';
-import type { NextPage } from 'next';
-import { BaseLayout } from "@ui"
+import {useState} from 'react';
+import type {NextPage} from 'next';
+import {BaseLayout} from "@ui"
 import axios from 'axios';
-import { LoginProps, LoginFormState } from '@types';
-import { useAuthState, useAuthDispatch } from '@context'
+import {LoginProps, LoginFormState} from '@types';
+import {useAuthState, useAuthDispatch} from '@context'
 import * as Constants from '@utils/Constants';
 
 const Login: NextPage = (props: LoginProps) => {
-    const { isLoggedIn } = useAuthState();
+    const {isLoggedIn} = useAuthState();
     const authState = useAuthState();
 
     const dispatch = useAuthDispatch();
 
-    const [result, setResult] = useState<string>('');    
-    const [userInfo, setUserInfo] = useState<LoginFormState>({ name: '', password: '' })
+    const [result, setResult] = useState<string>('');
+    const [userInfo, setUserInfo] = useState<LoginFormState>({name: '', password: ''})
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target;
-        setUserInfo({ [name]: value } as Pick<
+        const {name, value} = event.target;
+        setUserInfo({[name]: value} as Pick<
             LoginFormState,
             keyof LoginFormState
         >);

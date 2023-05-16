@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import type { NextPage } from 'next';
+import {useState, useEffect} from 'react';
+import type {NextPage} from 'next';
 import axios from 'axios';
 import Link from 'next/link';
 
-import { BaseLayout } from "@ui"
+import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
-import { useAuthState, useAuthDispatch } from '@context';
-import { ProductProp } from '@types'
+import {useAuthState, useAuthDispatch} from '@context';
+import {ProductProp} from '@types'
 
 const Product: NextPage = () => {
-    const { accessToken } = useAuthState();
+    const {accessToken} = useAuthState();
     const [products, setProducts] = useState<ProductProp[]>([]);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const Product: NextPage = () => {
         <div className="col-sm-6 col-md-4" key={product.id}>
             <div className="thumbnail product-thumbnail">
                 <Link href={'/products/' + product.id}>
-                    <img className="img-thumbnail img-fluid" src={product.imageUrl} alt={product.name} />
+                    <img className="img-thumbnail img-fluid" src={product.imageUrl} alt={product.name}/>
                 </Link>
                 <div className="product-details">
                     <h3 className="text-xl font-bold capitalize">{product.name}</h3>

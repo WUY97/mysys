@@ -12,8 +12,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class AuthServiceImplTest extends TestCase
-{
+public class AuthServiceImplTest extends TestCase {
     private AuthMgr authBean;
     private JwtUtility jwtUtilBean;
     private AuthServiceImpl authService;
@@ -32,17 +31,15 @@ public class AuthServiceImplTest extends TestCase
      *
      * @param testName name of the test case
      */
-    public AuthServiceImplTest(String testName )
-    {
-        super( testName );
+    public AuthServiceImplTest(String testName) {
+        super(testName);
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
-    {
-        return new TestSuite( AuthServiceImplTest.class );
+    public static Test suite() {
+        return new TestSuite(AuthServiceImplTest.class);
     }
 
     public void testDummy() {
@@ -57,7 +54,7 @@ public class AuthServiceImplTest extends TestCase
         OAuthToken authToken = authService.getOAuthToken(TestConfig.Test_Admin_Auth.getId(),
                 TestConfig.Test_Admin_Auth.getPassword());
         Assert.assertNotNull(authToken);
-        Assert.assertEquals(authToken.getAccess_token(),TestConfig.DUMMY_TOKEN);
+        Assert.assertEquals(authToken.getAccess_token(), TestConfig.DUMMY_TOKEN);
     }
 
     public void testGetUserAuth() {
