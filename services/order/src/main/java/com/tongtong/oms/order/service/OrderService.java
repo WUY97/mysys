@@ -17,10 +17,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 /**
- * Created by anurag on 24/03/17.
- */
-
-/**
  * Rest interface for adding, searching, modifying and deleting products
  */
 @RestController

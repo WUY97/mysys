@@ -1,8 +1,6 @@
 package com.tongtong.product.service;
 
-import com.google.gson.Gson;
 import com.tongtong.common.config.AppConfig;
-import com.tongtong.common.entity.Role;
 import com.tongtong.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

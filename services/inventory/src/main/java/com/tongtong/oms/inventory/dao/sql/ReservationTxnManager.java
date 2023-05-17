@@ -46,12 +46,12 @@ public abstract class ReservationTxnManager {
 
     public boolean reserveInventory(InventoryReservation inventoryReservation) {
         int retryCount;
-        for (retryCount=0; retryCount < TXN_RETRY_LIMIT; retryCount++) {
+        for (retryCount = 0; retryCount < TXN_RETRY_LIMIT; retryCount++) {
             int result = reserveInventoryTransaction(inventoryReservation);
             if (result == TXN_RETRY) {
                 try {
                     if (retryCount > 0)
-                        Thread.sleep(10*retryCount);
+                        Thread.sleep(10 * retryCount);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -71,10 +71,10 @@ public abstract class ReservationTxnManager {
             public Object doInTransaction(TransactionStatus status) {
                 try {
                     return reserveInventoryExecute(inventoryReservation);
-                } catch(ReservationTxnRetryException re) {
+                } catch (ReservationTxnRetryException re) {
                     status.setRollbackOnly();
                     return TXN_RETRY;
-                } catch(Exception e) {
+                } catch (Exception e) {
                     status.setRollbackOnly();
                     return TXN_ERROR;
                 }

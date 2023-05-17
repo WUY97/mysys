@@ -2,7 +2,7 @@ package com.tongtong.common.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Role implements GrantedAuthority {

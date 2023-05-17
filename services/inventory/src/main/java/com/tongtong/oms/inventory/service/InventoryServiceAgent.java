@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InventoryServiceAgent extends ServiceAgent {
 
-    @GetMapping(path= AppConfig.STATUS_PATH, produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = AppConfig.STATUS_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServiceStatus> getServiceStatus() {
         ServiceStatus status = getServiceStatus(ServiceID.InventorySvc);
         return ResponseEntity.ok().body(status);

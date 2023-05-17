@@ -28,8 +28,7 @@ public class DBInventoryDao implements InventoryDao {
     private ReservationTxnManager reservationTxnManager;
 
     @PostConstruct
-    public void postConstruct()
-    {
+    public void postConstruct() {
         this.reservationTxnManager = reservationTxnManagerFactory.getInstance(jdbcTemplate);
     }
 
@@ -79,7 +78,7 @@ public class DBInventoryDao implements InventoryDao {
     @Override
     public boolean insertInventory(Inventory inventory) {
         int retValue = jdbcTemplate.update(invInsertSql,
-                new Object[] {inventory.getProductId(), inventory.getQuantity()});
+                new Object[]{inventory.getProductId(), inventory.getQuantity()});
         if (retValue <= 0) {
             return false;
         }
@@ -106,7 +105,7 @@ public class DBInventoryDao implements InventoryDao {
         try {
             retValue = jdbcTemplate.update(invUpdateSql,
                     new Object[]{inventory.getQuantity(), inventory.getProductId()});
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
         if (retValue <= 0) {

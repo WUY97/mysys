@@ -1,8 +1,8 @@
 package com.tongtong.oms.order.queue.rabbitmq;
 
+import com.rabbitmq.client.*;
 import com.tongtong.oms.order.queue.MQConsumer;
 import com.tongtong.oms.order.queue.OrderConsumer;
-import com.rabbitmq.client.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

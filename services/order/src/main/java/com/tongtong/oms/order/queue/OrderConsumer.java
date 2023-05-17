@@ -6,8 +6,6 @@ import com.tongtong.oms.order.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-
 @Component
 public class OrderConsumer {
 

@@ -2,7 +2,6 @@ package com.tongtong.common.security;
 
 import com.tongtong.common.config.AppConfig;
 import com.tongtong.common.entity.Role;
-
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;

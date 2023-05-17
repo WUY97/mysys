@@ -1,8 +1,8 @@
 package com.tongtong.auth.core;
 
-import java.util.List;
-
 import com.tongtong.common.entity.UserAuth;
+
+import java.util.List;
 
 public interface AuthMgr {
     boolean createUser(UserAuth userAuth);

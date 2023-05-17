@@ -1,11 +1,11 @@
 package com.tongtong.oms.order;
 
-import com.tongtong.common.config.*;
+import com.tongtong.common.config.AppConfigListener;
+import com.tongtong.common.config.EnvConfig;
 import com.tongtong.common.security.CORSFilter;
 import com.tongtong.oms.cart.dao.CartDaoFactory;
 import com.tongtong.oms.order.dao.OrderDaoFactory;
 import jakarta.servlet.ServletContextListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,15 +14,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication(scanBasePackages = {"com.tongtong.oms.order", "com.tongtong.oms.cart"})
-@PropertySource(value = {"classpath:config.properties"})
 public class WebApplication extends SpringBootServletInitializer {
-
-    @Autowired
-    private Environment environment;
 
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);

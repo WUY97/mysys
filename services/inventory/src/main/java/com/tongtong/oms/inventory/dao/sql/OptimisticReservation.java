@@ -26,7 +26,7 @@ public class OptimisticReservation extends ReservationTxnManager {
     protected int reserveInventoryExecute(InventoryReservation inventoryReservation)
             throws Exception {
         List<Inventory> inventoryList = getInventory(inventoryReservation);
-        for (int i=0; i<inventoryReservation.getInventoryReservationLines().size(); i++) {
+        for (int i = 0; i < inventoryReservation.getInventoryReservationLines().size(); i++) {
             InventoryReservationLine line = inventoryReservation.getInventoryReservationLines().get(i);
             Inventory inventory = inventoryList.get(i);
             int result;

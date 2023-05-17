@@ -27,8 +27,7 @@ public class InventoryServiceImpl {
     private String inventoryDBType;
 
     @PostConstruct
-    public void postConstruct()
-    {
+    public void postConstruct() {
         this.inventoryDaoBean = inventoryDaoFactory.getInventoryDao(inventoryDBType);
     }
 
@@ -41,9 +40,8 @@ public class InventoryServiceImpl {
     }
 
     /**
-     *
-     * @apiNote             Get inventory for all products
-     * @return              success
+     * @return success
+     * @apiNote Get inventory for all products
      */
     public List<Inventory> getInventory() {
         List<Inventory> inventoryList = getInventoryDaoBean().getInventory();
@@ -57,8 +55,8 @@ public class InventoryServiceImpl {
     }
 
     /**
-     * @param productId     productId for which availability is needed
-     * @return              success
+     * @param productId productId for which availability is needed
+     * @return success
      */
     public Inventory getInventory(String productId) {
         return getInventoryDaoBean().getInventory(productId);
@@ -73,16 +71,16 @@ public class InventoryServiceImpl {
     }
 
     /**
-     * @param inventory     inventory to be updated
-     * @return              success
+     * @param inventory inventory to be updated
+     * @return success
      */
     public boolean updateInventory(Inventory inventory) {
         return getInventoryDaoBean().insertInventory(inventory);
     }
 
     /**
-     * @param inventory     inventory to be inserted
-     * @return              success
+     * @param inventory inventory to be inserted
+     * @return success
      */
     public boolean insertInventory(Inventory inventory) {
         return getInventoryDaoBean().insertInventory(inventory);
@@ -90,6 +88,7 @@ public class InventoryServiceImpl {
 
     /**
      * Delete all inventory records
+     *
      * @return
      */
     public boolean deleteInventory() {

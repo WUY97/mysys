@@ -16,14 +16,12 @@ public class InventoryServiceTest extends TestCase {
     public InventoryServiceTest() {
     }
 
-    public InventoryServiceTest(String testName )
-    {
-        super( testName );
+    public InventoryServiceTest(String testName) {
+        super(testName);
     }
 
-    public static Test suite()
-    {
-        return new TestSuite( InventoryServiceTest.class );
+    public static Test suite() {
+        return new TestSuite(InventoryServiceTest.class);
     }
 
     public void setUp() {

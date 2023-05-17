@@ -1,8 +1,5 @@
 package com.tongtong.oms.order.service;
 
-import com.tongtong.oms.order.processor.OrderPostProcessor;
-import com.tongtong.oms.order.processor.OrderPreProcessor;
-import com.tongtong.oms.order.util.OrderIdGenerator;
 import com.tongtong.oms.cart.entity.Cart;
 import com.tongtong.oms.cart.entity.CartLine;
 import com.tongtong.oms.cart.service.CartServiceImpl;
@@ -11,6 +8,9 @@ import com.tongtong.oms.order.dao.OrderDaoFactory;
 import com.tongtong.oms.order.entity.Order;
 import com.tongtong.oms.order.entity.OrderLine;
 import com.tongtong.oms.order.entity.OrderStatus;
+import com.tongtong.oms.order.processor.OrderPostProcessor;
+import com.tongtong.oms.order.processor.OrderPreProcessor;
+import com.tongtong.oms.order.util.OrderIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

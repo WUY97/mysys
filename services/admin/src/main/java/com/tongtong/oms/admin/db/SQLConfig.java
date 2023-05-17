@@ -1,9 +1,8 @@
-package com.tongtong.oms.order;
+package com.tongtong.oms.admin.db;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -13,15 +12,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource(value = {"classpath:config.properties"})
-public class CartDBConfiguration {
+@PropertySource(value = {"classpath:application-config.properties"})
+public class SQLConfig {
 
     @Autowired
     private Environment environment;
-
-    protected String getKeyspaceName() {
-        return environment.getProperty("database.cassandra.keySpace");
-    }
 
     private String getDriverClass() {
         return "org.postgresql.Driver";
@@ -51,8 +46,8 @@ public class CartDBConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(name = "database.type", havingValue = "SQL")
-    public DataSource postgresCartDataSource() {
+    @ConditionalOnExpression("'${database.type}'.equals('SQL') or '${database.type}'.equals('ALL')")
+    public DataSource postgresAdminDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(getDriverClass());
         dataSource.setUrl(getPostgresUrl());
@@ -64,10 +59,9 @@ public class CartDBConfiguration {
     }
 
     @Bean
-    @Qualifier("cartJdbcTemplate")
-    @ConditionalOnProperty(name = "database.type", havingValue = "SQL")
-    public JdbcTemplate cartJdbcTemplate(DataSource postgresCartDataSource) {
-        return new JdbcTemplate(postgresCartDataSource);
+    @ConditionalOnExpression("'${database.type}'.equals('SQL') or '${database.type}'.equals('ALL')")
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
 }

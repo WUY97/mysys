@@ -30,7 +30,8 @@ public class InventoryService {
 
     /**
      * Get inventory for all products. Only for user role admin.
-     * @return      list of product inventory
+     *
+     * @return list of product inventory
      */
     @Secured({Role.ADMIN})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +45,8 @@ public class InventoryService {
 
     /**
      * Get inventory for a product
-     * @param productId     id of product for which inventory is to be fetched
+     *
+     * @param productId id of product for which inventory is to be fetched
      * @return
      */
     @Secured({Role.ADMIN, Role.USER})
@@ -59,13 +61,14 @@ public class InventoryService {
 
     /**
      * Insert inventory for a product. To be used by admin role only.
-     * @param productId     product id
-     * @param inventory     inventory object
+     *
+     * @param productId product id
+     * @param inventory inventory object
      * @return
      */
     @Secured({Role.ADMIN})
     @PutMapping(path = AppConfig.INVENTORY_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.TEXT_PLAIN_VALUE)
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity insertInventory(@PathVariable("productId") String productId,
                                           @RequestBody Inventory inventory) {
         if (getInventoryServiceBean().insertInventory(inventory)) {
@@ -76,14 +79,15 @@ public class InventoryService {
 
     /**
      * Update inventory
-     * @param inventory     updated inventory object
+     *
+     * @param inventory updated inventory object
      * @return
      */
     @Secured({Role.ADMIN, Role.USER})
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity updateInventory(@RequestBody Inventory inventory) {
-        if(getInventoryServiceBean().updateInventory(inventory)) {
+        if (getInventoryServiceBean().updateInventory(inventory)) {
             return ResponseEntity.ok().body("UPDATE SUCCESSFUL");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("UPDATE FAILED");
@@ -91,14 +95,15 @@ public class InventoryService {
 
     /**
      * Reserve inventory for product order lines
-     * @param inventoryReservation  object carrying inventory requirements of order lines
+     *
+     * @param inventoryReservation object carrying inventory requirements of order lines
      * @return
      */
-    @Secured({Role.ADMIN,Role.USER})
-    @PostMapping(path= AppConfig.INVENTORY_RESERVATION_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @Secured({Role.ADMIN, Role.USER})
+    @PostMapping(path = AppConfig.INVENTORY_RESERVATION_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity reserveInventory(@RequestBody InventoryReservation inventoryReservation) {
-        if(getInventoryServiceBean().reserveInventory(inventoryReservation)) {
+        if (getInventoryServiceBean().reserveInventory(inventoryReservation)) {
             return ResponseEntity.ok().body("SUCCESS");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("UPDATE FAILED");

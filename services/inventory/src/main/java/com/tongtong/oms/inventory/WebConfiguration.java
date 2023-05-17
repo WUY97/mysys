@@ -8,9 +8,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.EnumSet;
 
@@ -24,7 +21,7 @@ public class WebConfiguration implements ServletContextListener {
                 .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.INVENTORY_RESOURCE_PATH, AppConfig.INVENTORY_RESOURCE_PATH + "/**");
 
         servletContext.addFilter("AuthorizationFilter", AuthorizationFilter.class)
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.INVENTORY_RESOURCE_PATH +"/**");
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, AppConfig.INVENTORY_RESOURCE_PATH + "/**");
     }
 
     @Override

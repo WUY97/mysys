@@ -16,11 +16,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication(scanBasePackages = {"com.tongtong.auth"})
-@PropertySource(value = {"classpath:config.properties"})
 public class WebApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
@@ -38,8 +36,8 @@ public class WebApplication extends SpringBootServletInitializer {
     }
 
     @Bean
-    public FilterRegistrationBean corsFilterBean() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+    public FilterRegistrationBean<CORSFilter> corsFilterBean() {
+        FilterRegistrationBean<CORSFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new CORSFilter());
         bean.setOrder(2);
         return bean;

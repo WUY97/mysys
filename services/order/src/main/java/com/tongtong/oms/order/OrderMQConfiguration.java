@@ -1,26 +1,32 @@
 package com.tongtong.oms.order;
 
-import com.tongtong.oms.order.queue.*;
+import com.tongtong.oms.order.queue.MQConsumer;
+import com.tongtong.oms.order.queue.MQProducer;
+import com.tongtong.oms.order.queue.OrderConsumer;
 import com.tongtong.oms.order.queue.local.LocalMQConsumer;
 import com.tongtong.oms.order.queue.local.LocalMQProducer;
 import com.tongtong.oms.order.queue.rabbitmq.RabbitMQConsumer;
 import com.tongtong.oms.order.queue.rabbitmq.RabbitMQProducer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 
 @Configuration
-@PropertySource(value = {"classpath:config.properties"})
 public class OrderMQConfiguration {
 
-    @Autowired
-    private Environment environment;
+    @Value("${order.queue.host}")
+    private String queueHost;
+
+    @Value("${order.queue.name}")
+    private String queueName;
+
+    @Value("${order.queue.type}")
+    private String queueType;
 
     @Autowired
     private OrderConsumer orderConsumer;
@@ -31,9 +37,9 @@ public class OrderMQConfiguration {
 
     @Bean
     public MQProducer getMessageQueueProducerBean() throws IOException, TimeoutException {
-        if (environment.getProperty("order.queue.type").equals("rabbitmq")) {
-            return new RabbitMQProducer(environment.getProperty("order.queue.host"),
-                    environment.getProperty("order.queue.name"));
+        if (queueType.equals("rabbitmq")) {
+            return new RabbitMQProducer(queueHost,
+                    queueName);
         }
         // order.queue.type=local
         return new LocalMQProducer();
@@ -42,9 +48,9 @@ public class OrderMQConfiguration {
     @Bean
     public MQConsumer getMessageQueueConsumerBean() throws IOException, TimeoutException {
         MQConsumer mqConsumer =
-                (environment.getProperty("order.queue.type").equals("rabbitmq")) ?
-                        new RabbitMQConsumer(environment.getProperty("order.queue.host"),
-                                environment.getProperty("order.queue.name")) :
+                (queueType.equals("rabbitmq")) ?
+                        new RabbitMQConsumer(queueHost,
+                                queueName) :
                         new LocalMQConsumer();
         mqConsumer.setOrderConsumer(getOrderConsumer());
         try {

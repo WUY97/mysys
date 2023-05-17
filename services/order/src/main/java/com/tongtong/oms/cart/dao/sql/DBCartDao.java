@@ -14,9 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by anurag on 24/03/17.
- */
 @Component("CartSQL")
 public class DBCartDao implements CartDao {
 

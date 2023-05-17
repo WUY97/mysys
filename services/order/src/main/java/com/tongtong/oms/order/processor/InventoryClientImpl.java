@@ -1,18 +1,15 @@
 package com.tongtong.oms.order.processor;
 
 import com.google.gson.Gson;
-import com.tongtong.common.config.AppConfig;
-import com.tongtong.common.config.ServiceID;
 import com.tongtong.oms.order.entity.InventoryReservation;
 import com.tongtong.oms.order.service.OrderServiceImpl;
 import jakarta.annotation.PostConstruct;
-import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Component;
-
 
 import java.io.IOException;
 
