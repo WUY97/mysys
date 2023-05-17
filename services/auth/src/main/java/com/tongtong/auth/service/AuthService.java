@@ -2,14 +2,15 @@ package com.tongtong.auth.service;
 
 import com.tongtong.auth.entity.OAuthToken;
 import com.tongtong.common.config.AppConfig;
+import com.tongtong.common.entity.Role;
 import com.tongtong.common.entity.UserAuth;
+import com.tongtong.common.security.Secured;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -103,7 +104,7 @@ public class AuthService {
      *
      * @return list of user auth records
      */
-    @Secured({"Admin"})
+    @Secured({Role.ADMIN})
     @GetMapping(path = AppConfig.USERS_AUTH_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserAuth>> getUserAuthList() {
         ResponseEntity<List<UserAuth>> result;
@@ -123,7 +124,7 @@ public class AuthService {
      * @param userAuth user id as form parameter
      * @return user auth object with user authentication details
      */
-    @Secured({"Admin"})
+    @Secured({Role.ADMIN})
     @PutMapping(path = AppConfig.USER_AUTH_PATH, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAuth> createUserAuth(@PathVariable("id") String id,
@@ -145,7 +146,7 @@ public class AuthService {
      *
      * @return
      */
-    @Secured({"Admin"})
+    @Secured({Role.ADMIN})
     @DeleteMapping(path = AppConfig.USERS_AUTH_PATH, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> deleteUsersAuth() {
         ResponseEntity<String> result;

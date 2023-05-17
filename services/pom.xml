@@ -24,7 +24,6 @@
         <module>product</module>
         <module>order</module>
         <module>inventory</module>
-        <module>demo</module>
         <!--		<module>discovery</module>-->
     </modules>
 
