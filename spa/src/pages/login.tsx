@@ -3,8 +3,8 @@ import {useState} from 'react';
 import type {NextPage} from 'next';
 import {BaseLayout} from "@ui"
 import axios from 'axios';
-import {LoginProps, LoginFormState} from '@types';
-import {useAuthState, useAuthDispatch} from '@context'
+import {LoginFormState, LoginProps} from '@types';
+import {useAuthDispatch, useAuthState} from '@context'
 import * as Constants from '@utils/Constants';
 
 const Login: NextPage = (props: LoginProps) => {

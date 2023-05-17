@@ -1,5 +1,5 @@
 import {createContext, useContext, useState} from "react";
-import {AuthState, AuthContextValue} from "@types";
+import {AuthContextValue, AuthState} from "@types";
 
 const AUTH_STATE_KEY = "auth_state";
 

@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import type {NextPage} from 'next';
 import axios from 'axios';
 import {useRouter} from 'next/router';
@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
-import {useAuthState, useAuthDispatch} from '@context';
-import {ProductProp, CartLine} from '@types'
+import {useAuthState} from '@context';
+import {CartLine, ProductProp} from '@types'
 
 const Product: NextPage = () => {
     const {accessToken, userId} = useAuthState();

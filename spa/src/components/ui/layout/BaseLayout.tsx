@@ -1,4 +1,4 @@
-import {Suspense, PropsWithChildren} from 'react';
+import {PropsWithChildren, Suspense} from 'react';
 import NavPanel from '../nav-panel';
 import {ErrorBoundary} from '@utils';
 

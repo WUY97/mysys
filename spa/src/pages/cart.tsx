@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {useState, useEffect, useRef} from 'react';
+import {useEffect, useState} from 'react';
 import type {NextPage} from 'next';
 import axios from 'axios';
 import Link from 'next/link';
@@ -7,7 +7,7 @@ import Link from 'next/link';
 import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
 import {useAuthState} from '@context';
-import {CartLine, CartData} from '@types'
+import {CartData, CartLine} from '@types'
 
 const Cart: NextPage = () => {
     const [cart, setCart] = useState<CartData | null>(null);

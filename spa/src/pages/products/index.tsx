@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import type {NextPage} from 'next';
 import axios from 'axios';
 import Link from 'next/link';
 
 import {BaseLayout} from "@ui"
 import * as Constants from '@utils/Constants';
-import {useAuthState, useAuthDispatch} from '@context';
+import {useAuthState} from '@context';
 import {ProductProp} from '@types'
 
 const Product: NextPage = () => {
