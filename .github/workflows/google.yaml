@@ -64,11 +64,8 @@ jobs:
           token_format: 'access_token'
 
       - name: Docker configuration
-        uses: 'docker/login-action@v1'
-        with:
-          registry: '${{GAR_LOCATION}}-docker.pkg.dev'
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.access_token }}'
+        run: |-
+          echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
 
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v1
