@@ -82,7 +82,9 @@ jobs:
             --build-arg GCP_SQL_INSTANCE_CONNECTION_NAME="$GCP_SQL_INSTANCE_CONNECTION_NAME" \
             --build-arg GCP_SQL_DATABASE_NAME="$GCP_SQL_DATABASE_NAME" \
             --build-arg GCP_SQL_USERNAME="$GCP_SQL_USERNAME" \
-            --build-arg GCP_SQL_PASSWORD="$GCP_SQL_PASSWORD"
+            --build-arg GCP_SQL_PASSWORD="$GCP_SQL_PASSWORD" \
+            --build-arg GCP_SQL_INSTANCE_CONNECTION_NAME="$GCP_SQL_INSTANCE_CONNECTION_NAME" \
+            .
 
       # Push the Docker image to Google Artifact Registry
       - name: Publish
