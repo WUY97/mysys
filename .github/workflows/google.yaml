@@ -57,11 +57,11 @@ jobs:
         with:
           credentials_json: '${{ env.GCP_CREDENTIALS }}'
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-
-      - name: 'Use gcloud CLI'
-        run: 'gcloud info'
+#      - name: 'Set up Cloud SDK'
+#        uses: 'google-github-actions/setup-gcloud@v1'
+#
+#      - name: 'Use gcloud CLI'
+#        run: 'gcloud info'
 
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v1
@@ -76,7 +76,13 @@ jobs:
             --tag "$GAR_LOCATION-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" \
-            .
+            --build-arg SPRING_PROFILES_ACTIVE="$SPRING_PROFILES_ACTIVE" \
+            --build-arg GCP_PROJECT_ID="$GCP_PROJECT_ID" \
+            --build-arg GCP_CREDENTIALS="$GCP_CREDENTIALS" \
+            --build-arg GCP_SQL_INSTANCE_CONNECTION_NAME="$GCP_SQL_INSTANCE_CONNECTION_NAME" \
+            --build-arg GCP_SQL_DATABASE_NAME="$GCP_SQL_DATABASE_NAME" \
+            --build-arg GCP_SQL_USERNAME="$GCP_SQL_USERNAME" \
+            --build-arg GCP_SQL_PASSWORD="$GCP_SQL_PASSWORD"
 
       # Push the Docker image to Google Artifact Registry
       - name: Publish
