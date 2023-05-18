@@ -24,8 +24,9 @@ env:
   GKE_ZONE: ${{ vars.GKE_ZONE }}
   DEPLOYMENT_NAME: gke-test
   REPOSITORY: ${{ vars.REPOSITORY }}
-  IMAGE: services
+  IMAGE: image
   GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
 
 jobs:
   setup-build-publish-deploy:
@@ -63,6 +64,10 @@ jobs:
 #
 #      - name: 'Use gcloud CLI'
 #        run: 'gcloud info'
+
+      - name: Docker configuration
+        run: |-
+          echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
 
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v1
