@@ -17,7 +17,7 @@ database:
 spring:
   config:
     activate:
-        on-profile: dev
+      on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/yitong
     name: yitong
@@ -27,7 +27,7 @@ spring:
 spring:
   config:
     activate:
-        on-profile: prod
+      on-profile: prod
   cloud:
     gcp:
       project-id: ${GCP_PROJECT_ID}

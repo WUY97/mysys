@@ -18,13 +18,11 @@
     </properties>
     <modules>
         <module>common</module>
-        <!--		<module>admin</module>-->
+        <module>admin</module>
         <module>auth</module>
-        <!--		<module>gateway</module>-->
         <module>product</module>
         <module>order</module>
         <module>inventory</module>
-        <!--		<module>discovery</module>-->
     </modules>
 
     <build>
@@ -32,6 +30,32 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy_package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="admin/target/admin.jar" todir="target/"/>
+                                <copy file="auth/target/auth.jar" todir="target/"/>
+                                <copy file="product/target/product.jar" todir="target/"/>
+                                <copy file="order/target/order.jar" todir="target/"/>
+                                <copy file="inventory/target/inventory.jar" todir="target/"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

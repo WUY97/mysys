@@ -33,6 +33,15 @@ public class ProductMockDao implements ProductDao {
     }
 
     @Override
+    public List<Product> getProductsByIds(List<String> ids) {
+        List<Product> products = new LinkedList<Product>();
+        for (String id : ids) {
+            products.add(getProduct(id));
+        }
+        return products;
+    }
+
+    @Override
     public Product modifyProduct(Product product) {
         return product;
     }
