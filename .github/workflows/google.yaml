@@ -22,9 +22,10 @@ env:
   GAR_LOCATION: ${{ vars.GAR_LOCATION }}
   GKE_CLUSTER: ${{ vars.GKE_CLUSTER }}
   GKE_ZONE: ${{ vars.GKE_ZONE }}
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+  DEPLOYMENT_NAME: gke-test
   REPOSITORY: ${{ vars.REPOSITORY }}
   IMAGE: services
+  GITHUB_SHA: ${{ github.sha }}
 
 jobs:
   setup-build-publish-deploy:
