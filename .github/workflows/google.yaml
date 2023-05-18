@@ -36,10 +36,6 @@ jobs:
       run:
         working-directory: services
 
-#    permissions:
-#      contents: 'read'
-#      id-token: 'write'
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -70,7 +66,7 @@ jobs:
       - name: Docker configuration
         uses: 'docker/login-action@v1'
         with:
-          registry: '$GAR_LOCATION-docker.pkg.dev'
+          registry: '${{GAR_LOCATION}}-docker.pkg.dev'
           username: 'oauth2accesstoken'
           password: '${{ steps.auth.outputs.access_token }}'
 
