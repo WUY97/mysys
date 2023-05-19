@@ -63,7 +63,7 @@ public abstract class ApiClient {
         String uri = getServiceURI() +
                 "/" + id;
         OperationStatus operationStatus = new OperationStatus(false);
-        operationStatus.setMessage("Unable to convert object to json: "+object.toString());
+        operationStatus.setMessage("Unable to convert object to json: " + object.toString());
         String jsonObject;
         try {
             jsonObject = mapper.writeValueAsString(object);
@@ -120,7 +120,7 @@ public abstract class ApiClient {
         ServiceInstance instance = loadBalancerClient.choose(getEndpointServiceID().toString());
 
         if (instance == null) {
-            operationStatus.setMessage("Unknown host for: "+getEndpointServiceID().toString());
+            operationStatus.setMessage("Unknown host for: " + getEndpointServiceID().toString());
             return operationStatus;
         }
 
@@ -137,7 +137,7 @@ public abstract class ApiClient {
             operationStatus.setMessage("Deleted data");
         } catch (Exception e) {
             operationStatus.setSuccess(false);
-            operationStatus.setMessage("Error deleting data: "+e.getMessage());
+            operationStatus.setMessage("Error deleting data: " + e.getMessage());
         }
         return operationStatus;
     }
@@ -165,7 +165,7 @@ public abstract class ApiClient {
             return new ObjectMapper().readValue(response, ServiceStatus.class);
         } catch (Exception e) {
             serviceStatus.setServiceHost(baseUrl);
-            serviceStatus.setServiceTime("Not Reachable: "+e.getMessage());
+            serviceStatus.setServiceTime("Not Reachable: " + e.getMessage());
             return serviceStatus;
         }
     }
@@ -186,9 +186,9 @@ public abstract class ApiClient {
 
     protected static String getNameFromId(String id) {
         StringBuilder buffer = new StringBuilder(id);
-        for (int i=0; i<buffer.length(); i++) {
+        for (int i = 0; i < buffer.length(); i++) {
             if (buffer.charAt(i) == '-') {
-                buffer.setCharAt(i,' ');
+                buffer.setCharAt(i, ' ');
             }
         }
         return StringUtils.capitalize(buffer.toString());

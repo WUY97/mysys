@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthenticationFilter implements GlobalFilter, Ordered {
     public UserAuth getUserCred(String authHeader) {
-        if(authHeader==null || !authHeader.startsWith("Bearer")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer")) {
             return null;
         }
 

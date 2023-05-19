@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @RestController
 public class LocalRequestHandler {
