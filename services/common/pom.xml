@@ -73,5 +73,13 @@
             <artifactId>reactor-core</artifactId>
             <version>3.3.13.RELEASE</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
     </dependencies>
 </project>

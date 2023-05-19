@@ -10,8 +10,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 public class WebApplication extends SpringBootServletInitializer {
@@ -49,5 +51,11 @@ public class WebApplication extends SpringBootServletInitializer {
                 new ServletListenerRegistrationBean<>();
         bean.setListener(appConfigListener);
         return bean;
+    }
+
+    @LoadBalanced
+    @Bean
+    public WebClient.Builder loadBalancedWebClientBuilder() {
+        return WebClient.builder();
     }
 }

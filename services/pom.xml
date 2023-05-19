@@ -23,6 +23,8 @@
         <module>product</module>
         <module>order</module>
         <module>inventory</module>
+        <module>discovery</module>
+        <module>gateway</module>
     </modules>
 
     <build>
@@ -52,6 +54,8 @@
                                 <copy file="product/target/product.jar" todir="target/"/>
                                 <copy file="order/target/order.jar" todir="target/"/>
                                 <copy file="inventory/target/inventory.jar" todir="target/"/>
+                                <copy file="discovery/target/discovery.jar" todir="target/"/>
+                                <copy file="gateway/target/gateway.jar" todir="target/"/>
                             </target>
                         </configuration>
                     </execution>

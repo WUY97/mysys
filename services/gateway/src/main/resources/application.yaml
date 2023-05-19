@@ -1,0 +1,55 @@
+server:
+    port: 8080
+spring:
+  application:
+    name: GatewaySvc
+  cloud:
+    gateway:
+      routes:
+      - id: authsvc
+        uri: lb://AuthSvc
+        predicates:
+        - Path=/admin/**
+        filters:
+        - RewritePath=/admin/(?<segment>.*), /$\{segment}
+      - id: productsvc
+        uri: lb://ProductSvc
+        predicates:
+        - Path=/products/**
+        filters:
+        - RewritePath=/products/(?<segment>.*), /$\{segment}
+      - id: ordersvc
+        uri: lb://OrderSvc
+        predicates:
+        - Path=/carts/**
+        filters:
+        - RewritePath=/carts/(?<segment>.*), /$\{segment}
+      - id: inventorysvc
+        uri: lb://InventorySvc
+        predicates:
+        - Path=/inventory/**
+        filters:
+        - RewritePath=/inventory/(?<segment>.*), /$\{segment}
+      - id: adminsvc
+        uri: lb://AdminSvc
+        predicates:
+        - Path=/admin/**
+        filters:
+        - RewritePath=/admin/(?<segment>.*), /$\{segment}
+      - id: gatewaysvc
+        uri: forward:/
+        predicates:
+        - Path=/**
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    registryFetchIntervalSeconds: 10
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
