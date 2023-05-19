@@ -13,10 +13,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication(scanBasePackages = {"com.tongtong.oms.order", "com.tongtong.oms.cart"})
+@EnableDiscoveryClient
 public class WebApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
